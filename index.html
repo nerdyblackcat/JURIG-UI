@@ -307,6 +307,73 @@
         </div>
     </section>
 
+    <style>
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+    
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+    
+        .slider img {
+            width: 100vw; /* Adjust to the screen width */
+            height: auto;
+        }
+    
+        .dot-container {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+    
+        .dot {
+            width: 15px;
+            height: 15px;
+            background-color: #bbb;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    
+        .dot.active {
+            background-color: #717171;
+        }
+    </style>
+    
+    <script>
+        let sliderIndex = 0;
+        const slider = document.getElementById("slider");
+        const dots = document.querySelectorAll(".dot");
+    
+        function showSlide(index) {
+            sliderIndex = index;
+            const slideWidth = slider.children[0].clientWidth; // Get the width of one slide
+            slider.style.transform = `translateX(${-slideWidth * sliderIndex}px)`; // Move the slider container
+    
+            // Update dot indicators
+            dots.forEach(dot => dot.classList.remove("active"));
+            dots[sliderIndex].classList.add("active");
+        }
+    
+        dots.forEach(dot => {
+            dot.addEventListener("click", () => {
+                showSlide(dot.dataset.index);
+            });
+        });
+    
+        // Optional: Add automatic sliding effect
+        setInterval(() => {
+            sliderIndex = (sliderIndex + 1) % slider.children.length;
+            showSlide(sliderIndex);
+        }, 3000); // Change slide every 3 seconds
+    </script>
+
     <section id="hero" class="hero">
         <h1>HISTORY OF UNIVERSITAS INDONESIA</h1>
     </section>
