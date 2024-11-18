@@ -5,39 +5,342 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JURIG UI</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <nav class="navbar">
-            <div class="logo">
-                <img src="logo-atas.png" alt="JURIG UI Logo" class="logo-img">
-            </div>
-            <div class="nav-links">
-                <a href="#home" id="home" aria-label="Go to Home">HOME</a>
-                <a href="#about" id="about" aria-label="Go to About">ABOUT</a>
-                <a href="#gallery" id="gallery" aria-label="Go to Gallery">GALLERY</a>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Image Slider -->
-    <section class="slider-container">
-        <div class="slider" id="slider">
-            <img src="urig-1.png" alt="Image 1">
-            <img src="urig-2.png" alt="Image 2">
-            <img src="urig-3.png" alt="Image 3">
-        </div>
-        <!-- Dot Indicators -->
-        <div class="dot-container" id="dotContainer">
-            <div class="dot active" data-index="0"></div>
-            <div class="dot" data-index="1"></div>
-            <div class="dot" data-index="2"></div>
-        </div>
-    </section>
-
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: white;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: linear-gradient(to right, #d40303, #6e0202);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;  /* Menambahkan ini untuk membuat navbar tetap diam */
+            top: 0;           /* Menempatkan navbar di bagian atas halaman */
+            left: 0;          /* Menempatkan navbar di kiri halaman */
+            width: 100%;      /* Agar navbar mengambil lebar penuh */
+            z-index: 1000;    /* Agar navbar tetap di atas elemen lain */
+        }
+
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 50px; /* Sesuaikan ukuran logo sesuai kebutuhan */
+            width: auto; /* Menjaga aspek rasio gambar */
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            position: relative; /* Required for the underline indicator */
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            position: relative; /* To allow absolute positioning of the underline */
+            padding-bottom: 5px; /* Space between text and underline */
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: rgb(254, 254, 254);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
+
+        .nav-links a.active::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        /* Slider */
         .slider-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out; 
+            width: 300%;
+        }
+
+        .slider img {
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain;
+        }
+
+        /* Dot Indicators */
+        .dot-container {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: rgb(199, 7, 7);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 400px;
+            background-image: url('/api/placeholder/1200/400');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        /* History Section */
+        .history {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .history h2 {
+            margin-bottom: 1rem;
+        }
+
+        /* Faculty Section */
+        .faculty-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 kolom pada layar besar */
+            gap: 1rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Mengatur gambar agar responsif */
+        .faculty-item img {
+         width: 100%;
+         height: 100%;
+         object-fit: cover; /* Agar gambar tetap terjaga proporsinya */
+        }
+
+        .faculty-item {
+            aspect-ratio: 1;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s;
+        }
+
+        .faculty-item:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(to right, #d40303, #6e0202);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: rgb(229, 8, 8);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Comment */
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: rgb(161, 0, 0);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            color: #eaeaea;
+        }
+
+        .comment-form {
+            margin-bottom: 20px;
+        }
+
+        .comment-form input, .comment-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .comment-form button {
+            background-color: #be0000;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .comment-form button:hover {
+            background-color: #218838;
+        }
+
+        .comment {
+            background: #000000;
+            border-left: 4px solid #ffffff;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            word-wrap: break-word; 
+            word-break: break-word;
+            overflow-wrap: break-word;
+    
+            /* Opsional: Jika ingin membatasi tinggi */
+            max-height: 150px; /* Batasi tinggi maksimal */
+            overflow-y: auto; /* Tambahkan scrollbar jika teks melebihi tinggi */
+        }
+        
+
+        .comment .name {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .comment .text {
+            margin-top: 5px;
+        }
+
+       /* Gallery */
+       body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .gallery-container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .gallery-container h2 {
+            border-bottom: 2px solid #fff;
+            display: inline-block;
+            margin-bottom: 20px;
+            padding-bottom: 5px;
+        }
+
+        .gallery-slider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .gallery {
+            display: flex;
+            overflow: hidden;
+            width: 80%;
+        }
+
+        .gallery img {
+            width: 200px;
+            height: auto;
+            margin: 5px;
+            border-radius: 10px;
+        }
+
+        .slide-btn {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .slide-btn.left {
+            left: 5%;
+        }
+
+        .slide-btn.right {
+            right: 5%;
+        }
+
+        .slide-btn:hover {
+            background-color: #555;
+        }
+
+       /* Home */
+       .slider-container {
             position: relative;
             overflow: hidden;
             width: 100%;
@@ -73,39 +376,119 @@
         .dot.active {
             background-color: #717171;
         }
-    </style>
-    
-    <script>
-        let sliderIndex = 0;
-        const slider = document.getElementById("slider");
-        const dots = document.querySelectorAll(".dot");
-    
-        function showSlide(index) {
-            sliderIndex = index;
-            const slideWidth = slider.children[0].clientWidth; // Get the width of one slide
-            slider.style.transform = `translateX(${-slideWidth * sliderIndex}px)`; // Move the slider container
-    
-            // Update dot indicators
-            dots.forEach(dot => dot.classList.remove("active"));
-            dots[sliderIndex].classList.add("active");
-        }
-    
-        dots.forEach(dot => {
-            dot.addEventListener("click", () => {
-                showSlide(dot.dataset.index);
-            });
-        });
-    
-        // Optional: Add automatic sliding effect
-        setInterval(() => {
-            sliderIndex = (sliderIndex + 1) % slider.children.length;
-            showSlide(sliderIndex);
-        }, 3000); // Change slide every 3 seconds
-    </script>
 
-    <section id="hero" class="hero">
-        <h1>HISTORY OF UNIVERSITAS INDONESIA</h1>
-    </section>
+        /* Footer Paragraphs */
+       .footer-paragraphs {
+            display: flex;
+            justify-content: space-between; /* Default untuk layar besar */
+            gap: 2rem;
+            margin-top: 2rem;
+            text-align: left;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 10px; /* Memberikan ruang di kiri dan kanan */
+        }
+
+        .footer-paragraphs .left-paragraph,
+        .footer-paragraphs .right-paragraph {
+            width: 48%; /* Membagi lebar 50% untuk masing-masing, beri sedikit ruang */
+            box-sizing: border-box; /* Pastikan padding tidak menambah lebar */
+        }
+
+        .footer-paragraphs p {
+            margin: 0;
+            padding: 0; /* Pastikan tidak ada padding yang menambah lebar */
+            line-height: 1.3; /* Menambah spasi antar baris agar teks lebih nyaman dibaca */
+        }
+
+        footer h3 {
+            margin-bottom: 1.5rem; /* Menambahkan jarak antara 'CONTACT US' dan paragraf di bawahnya */
+        }
+
+
+        /* Responsif pada layar kecil */
+        @media (max-width: 768px) {
+            .slider-container {
+                height: 60vh;
+            }
+
+            .slider img {
+                object-fit: cover;
+            }
+
+            .faculty-grid {
+              grid-template-columns: repeat(2, 1fr);  /* 2 kolom pada layar medium */
+            }
+
+            .footer-paragraphs {
+                flex-direction: column; /* Menyusun paragraf secara vertikal */
+                gap: 1rem;
+                justify-content: center; /* Center-kan isi konten */
+                text-align: center; /* Center-kan teks di dalam paragraf */
+            }
+
+            .footer-paragraphs .left-paragraph,
+            .footer-paragraphs .right-paragraph {
+                width: 100%; /* Full width untuk setiap paragraf pada layar kecil */
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .footer-paragraphs {
+                max-width: 1200px; /* Maksimumkan lebar konten footer pada layar besar */
+                margin: 0 auto; /* Centering footer */
+            }
+
+            .footer-paragraphs p {
+                flex: 0 1 48%; /* Tetap menjaga lebar paragraf pada layar besar */
+                padding-right: 20px; /* Menambahkan sedikit padding kanan pada paragraf kanan */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slider-container {
+                height: 50vh;
+            }
+
+           .faculty-grid {
+             grid-template-columns: 1fr;  /* 1 kolom pada layar kecil */
+            }
+        }
+
+        /* Fokus pada elemen navigasi */
+        .nav-links a:focus {
+            outline: 2px solid #ffcc00;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="logo-atas.png" alt="Logo JURIG UI" class="logo-img">
+            </div>
+            <div class="nav-links">
+                <a href="#home" id="home-link" aria-label="Pergi ke Home">HOME</a>
+                <a href="#about" id="about" aria-label="Pergi ke About">ABOUT</a>
+                <a href="#gallery" id="gallery-btn" aria-label="Pergi ke Gallery">GALLERY</a> 
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Image Slider -->
+<section class="slider-container" id="home"> <!-- This ID matches the link target -->
+    <div class="slider" id="slider">
+        <img src="urig-1.png" alt="Image 1">
+        <img src="urig-2.png" alt="Image 2">
+        <img src="urig-3.png" alt="Image 3">
+    </div>
+    <!-- Dot Indicators -->
+    <div class="dot-container" id="dotContainer">
+        <div class="dot active" data-index="0"></div>
+        <div class="dot" data-index="1"></div>
+        <div class="dot" data-index="2"></div>
+    </div>
+</section>
 
     <section class="history">
         <h2>FIND THE JURIG</h2>
@@ -143,6 +526,90 @@
         </div>
     </section>
 
+
+
+    <div class="container">
+        <h1>Kolom Komentar</h1>
+        <div class="comment-form">
+            <input type="text" id="name" placeholder="Nama Anda" required>
+            <textarea id="comment" placeholder="Tulis komentar Anda..." required></textarea>
+            <button id="submit">Kirim Komentar</button>
+        </div>
+        <div class="comments-section" id="comments-section">
+            <h2>Komentar:</h2>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('submit').addEventListener('click', function() {
+            const name = document.getElementById('name').value;
+            const comment = document.getElementById('comment').value;
+
+            if (name && comment) {
+                const commentsSection = document.getElementById('comments-section');
+
+                const commentDiv = document.createElement('div');
+                commentDiv.classList.add('comment');
+
+                const nameDiv = document.createElement('div');
+                nameDiv.classList.add('name');
+                nameDiv.textContent = name;
+
+                const textDiv = document.createElement('div');
+                textDiv.classList.add('text');
+                textDiv.textContent = comment;
+
+                commentDiv.appendChild(nameDiv);
+                commentDiv.appendChild(textDiv);
+
+                commentsSection.appendChild(commentDiv);
+
+                // Clear input fields
+                document.getElementById('name').value = '';
+                document.getElementById('comment').value = '';
+            } else {
+                alert('Harap isi semua field!');
+            }
+        });
+    </script>
+
+
+<div class="gallery-container" id="gallery"> <!-- Menambahkan id="gallery" -->
+    <h2>GALLERY</h2>
+    <div class="gallery-slider">
+        <button class="slide-btn left" onclick="slideLeft()">&#9664;</button>
+        <div class="gallery">
+            <img src="https://via.placeholder.com/200" alt="Image 1">
+            <img src="https://via.placeholder.com/200" alt="Image 2">
+            <img src="https://via.placeholder.com/200" alt="Image 3">
+            <img src="https://via.placeholder.com/200" alt="Image 4">
+            <img src="https://via.placeholder.com/200" alt="Image 5">
+            <img src="https://via.placeholder.com/200" alt="Image 6">
+            <img src="https://via.placeholder.com/200" alt="Image 7">
+        </div>
+        <button class="slide-btn right" onclick="slideRight()">&#9654;</button>
+    </div>
+</div>
+  <script>
+    const gallery = document.querySelector('.gallery');
+
+    function slideLeft() {
+      gallery.scrollBy({
+        top: 0,
+        left: -220,
+        behavior: 'smooth'
+      });
+    }
+
+    function slideRight() {
+      gallery.scrollBy({
+        top: 0,
+        left: 220,
+        behavior: 'smooth'
+      });
+    }
+  </script>
+
     <footer>
         <h3>CONTACT US</h3>
         <!-- Footer Paragraphs -->
@@ -170,11 +637,32 @@
     </footer>
 
     <script>
-        const slider = document.getElementById('slider');
-        const dots = document.querySelectorAll('.dot');
-        let currentIndex = 0;
-        const totalSlides = dots.length;
-
+        let sliderIndex = 0;
+        const slider=document.getElementById("slider");
+        const dots=document.querySelectorAll(".dot");
+    
+        function showSlide(index) {
+            sliderIndex = index;
+            const slideWidth = slider.children[0].clientWidth; // Get the width of one slide
+            slider.style.transform = `translateX(${-slideWidth * sliderIndex}px)`; // Move the slider container
+    
+            // Update dot indicators
+            dots.forEach(dot => dot.classList.remove("active"));
+            dots[sliderIndex].classList.add("active");
+        }
+    
+        dots.forEach(dot => {
+            dot.addEventListener("click", () => {
+                showSlide(dot.dataset.index);
+            });
+        });
+    
+        // Optional: Add automatic sliding effect
+        setInterval(() => {
+            sliderIndex = (sliderIndex + 1) % slider.children.length;
+            showSlide(sliderIndex);
+        }, 3000); // Change slide every 3 seconds
+    
         // Function to change slide
         function changeSlide() {
             currentIndex = (currentIndex + 1) % totalSlides; // Move to next slide (loop back to first)
@@ -202,7 +690,7 @@
         });
 
         const links = document.querySelectorAll('.nav-links a');
-
+    
         // Function to activate the current page link
         function setActiveLink() {
             links.forEach(link => {

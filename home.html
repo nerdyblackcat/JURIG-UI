@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JURIG UI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="logo-atas.png" alt="JURIG UI Logo" class="logo-img">
+            </div>
+            <div class="nav-links">
+                <a href="#home" id="home" aria-label="Go to Home">HOME</a>
+                <a href="#about" id="about" aria-label="Go to About">ABOUT</a>
+                <a href="#gallery" id="gallery" aria-label="Go to Gallery">GALLERY</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Image Slider -->
+    <section class="slider-container">
+        <div class="slider" id="slider">
+            <img src="urig-1.png" alt="Image 1">
+            <img src="urig-2.png" alt="Image 2">
+            <img src="urig-3.png" alt="Image 3">
+        </div>
+        <!-- Dot Indicators -->
+        <div class="dot-container" id="dotContainer">
+            <div class="dot active" data-index="0"></div>
+            <div class="dot" data-index="1"></div>
+            <div class="dot" data-index="2"></div>
+        </div>
+    </section>
+
+    <section class="history">
+        <h2>FIND THE JURIG</h2>
+    
+    </section>
+
+    <section class="faculty-grid">
+        <!-- Faculty logos -->
+        <div class="faculty-item">
+            <img src="makara-vokasi.png" alt="Faculty of Vocational Education Program">  
+        </div>
+        <div class="faculty-item">
+            <img src="makara-fkm.png" alt="Faculty of Public Health">
+        </div>
+        <div class="faculty-item">
+            <img src="makara-fk.png" alt="Faculty of Medicine">
+        </div>
+        <div class="faculty-item">
+            <img src="makara-feb.png" alt="Faculty of Economics and Business">
+        </div>
+        <div class="faculty-item">
+            <img src="makara-fasilkom.png" alt="Faculty of Computer Science">
+        </div>
+        <div class="faculty-item">
+            <img src="makara-farmasi.png" alt="Faculty of Pharmacy">
+        </div>
+        <div class="faculty-item">
+            <img src="makara-ft.png" alt="Faculty of Engineering">
+        </div>
+        <div class="faculty-item">
+            <img src="makara-fib.png" alt="Faculty of Humanities">
+        </div>
+        <div class="faculty-item">
+            <img src="makara-ui.png" alt="UI">
+        </div>
+    </section>
+
+    <footer>
+        <h3>CONTACT US</h3>
+        <!-- Footer Paragraphs -->
+        <div class="footer-paragraphs">
+            <p class="left-paragraph">
+                Universitas Indonesia - Produksi Media<br>
+                Jl. Margonda Raya, Pondok Cina,<br>
+                Kecamatan Beji, Kota Depok, 16424.<br>
+                +62 000 000 000<br>
+                JurigUI@gmail.com<br>
+            </p>
+            <p class="right-paragraph">
+                Kirim pesan kepada kami!<br>
+                Kami selalu siap mendengarkan anda. Apakah<br>
+                Anda memiliki pertanyaan, saran, atau butuh<br>
+                bantuan? Jangan ragu untuk menghubungi kami :)<br>
+            </p>
+        </div>
+
+        <div class="social-links">
+            <a href="#" aria-label="Line"><i class="fab fa-line"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
+
+    <!-- ini java script buat bagian ui jurig yang geser-geser + dot indicator -->
+    <script>
+        let sliderIndex = 0;
+        const slider = document.getElementById("slider");
+        const dots = document.querySelectorAll(".dot");
+    
+        function showSlide(index) {
+            sliderIndex = index;
+            const slideWidth = slider.children[0].clientWidth; // Get the width of one slide
+            slider.style.transform = `translateX(${-slideWidth * sliderIndex}px)`; // Move the slider container
+    
+            // Update dot indicators
+            dots.forEach(dot => dot.classList.remove("active"));
+            dots[sliderIndex].classList.add("active");
+        }
+    
+        dots.forEach(dot => {
+            dot.addEventListener("click", () => {
+                showSlide(dot.dataset.index);
+            });
+        });
+    
+        // Optional: Add automatic sliding effect
+        setInterval(() => {
+            sliderIndex = (sliderIndex + 1) % slider.children.length;
+            showSlide(sliderIndex);
+        }, 3000); // Change slide every 3 seconds
+
+        // Function to change slide
+        function changeSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides; // Move to next slide (loop back to first)
+            slider.style.transform = `translateX(-${currentIndex * 100}%)`; // Move slider
+            updateDots();
+        }
+
+        // Function to update active dot
+        function updateDots() {
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        // Auto slide every 3 seconds
+        setInterval(changeSlide, 3000);
+
+        // Optional: Handle dot clicks to manually change slide
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentIndex = index;
+                slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+                updateDots();
+            });
+        });
+
+        const links = document.querySelectorAll('.nav-links a');
+
+
+
+        //<INI SCRIPT BUAT PINDAH KE PAGE HOME ABOUT DAN GALLERY>
+        // Function to activate the current page link
+        function setActiveLink() {
+            links.forEach(link => {
+                if (window.location.hash === link.hash) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        // Listen for hash changes and update active state
+        window.addEventListener('hashchange', setActiveLink);
+
+        // Initialize active link when page loads
+        document.addEventListener('DOMContentLoaded', setActiveLink);
+    </script>
+</body>
+</html>
