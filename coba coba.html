@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komentar</title>
+    <style>
+     body {
+            background-color: #ff0000; /* Warna merah */
+            color: #fff; /* Warna teks putih */
+            font-family: sans-serif; /* Font sans-serif */
+            margin: 0; /* Margin badan 0 */
+        }
+
+        header {
+            padding: 10px;
+            background-color: #ff0000; /* Warna merah */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 30px; /* Lebar logo */
+            margin-right: 10px; /* Margin kanan logo */
+        }
+
+        nav ul {
+            list-style: none; /* Hilangkan bullet point pada list */
+            margin: 0; /* Margin list 0 */
+            padding: 0; /* Padding list 0 */
+            display: flex;
+            align-items: center;
+        }
+
+        nav li {
+            margin-left: 20px; /* Margin kiri item list */
+        }
+
+        nav a {
+            text-decoration: none; /* Hilangkan garis bawah pada link */
+            color: #fff; /* Warna link putih */
+        }
+
+        .container {
+            padding: 20px;
+            background-color: #fff; /* Warna putih */
+            margin: 20px auto; /* Margin kiri kanan auto, margin atas bawah 20px */
+            max-width: 800px; /* Lebar maksimal container */
+            border-radius: 10px; /* Sudut membulat container */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow container */
+        }
+
+        h1 {
+            font-size: 2em; /* Ukuran font 2em */
+            margin-bottom: 10px; /* Margin bawah heading */
+        }
+
+        #commentForm {
+            margin-bottom: 20px;
+        }
+
+        #commentInput {
+            width: 100%; /* Lebar textarea 100% */
+            padding: 10px; /* Padding textarea */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Komentar</h1>
+        <form id="commentForm">
+            <textarea id="commentInput" placeholder="Tulis komentar Anda..." required></textarea>
+            <button type="submit">Kirim</button>
+        </form>
+        <div id="commentsSection">
+            <h2>Komentar:</h2>
+            <ul id="commentsList"></ul>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('commentForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Mencegah pengiriman form
+
+            const commentInput = document.getElementById('commentInput');
+            const commentText = commentInput.value;
+
+            if (commentText) {
+                const commentsList = document.getElementById('commentsList');
+                const newComment = document.createElement('li');
+                newComment.classList.add('comment');
+                newComment.textContent = commentText;
+
+                commentsList.appendChild(newComment);
+                commentInput.value = ''; // Mengosongkan textarea setelah komentar dikirim
+            }
+        });
+    </script>
+</body>
+</html>

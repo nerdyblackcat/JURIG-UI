@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery Slider</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .gallery-container {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .gallery-container h2 {
+      border-bottom: 2px solid #fff;
+      display: inline-block;
+      margin-bottom: 20px;
+      padding-bottom: 5px;
+    }
+
+    .gallery-slider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .gallery {
+      display: flex;
+      overflow: hidden;
+      width: 80%;
+    }
+
+    .gallery img {
+      width: 200px;
+      height: auto;
+      margin: 5px;
+      border-radius: 10px;
+    }
+
+    .slide-btn {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      font-size: 20px;
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+    }
+
+    .slide-btn.left {
+      left: 5%;
+    }
+
+    .slide-btn.right {
+      right: 5%;
+    }
+
+    .slide-btn:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="gallery-container">
+    <h2>GALLERY</h2>
+    <div class="gallery-slider">
+      <button class="slide-btn left" onclick="slideLeft()">&#9664;</button>
+      <div class="gallery">
+        <img src="https://via.placeholder.com/200" alt="Image 1">
+        <img src="https://via.placeholder.com/200" alt="Image 2">
+        <img src="https://via.placeholder.com/200" alt="Image 3">
+        <img src="https://via.placeholder.com/200" alt="Image 4">
+        <img src="https://via.placeholder.com/200" alt="Image 5">
+        <img src="https://via.placeholder.com/200" alt="Image 6">
+      </div>
+      <button class="slide-btn right" onclick="slideRight()">&#9654;</button>
+    </div>
+  </div>
+  <script>
+    const gallery = document.querySelector('.gallery');
+
+    function slideLeft() {
+      gallery.scrollBy({
+        top: 0,
+        left: -220,
+        behavior: 'smooth'
+      });
+    }
+
+    function slideRight() {
+      gallery.scrollBy({
+        top: 0,
+        left: 220,
+        behavior: 'smooth'
+      });
+    }
+  </script>
+</body>
+</html>
