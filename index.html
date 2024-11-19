@@ -625,8 +625,11 @@
             showSlide(sliderIndex);
         }, 3000); // Change slide every 3 seconds
     
+       
+        // INI BUAT BIAR ADA UNDERLINE DI BAWAH TULISAN HOME ABOUT DAN GALLERY
+        const links = document.querySelectorAll('.nav-links a');
 
-        // JAVA SCRIPT BUAT MINDAHIN KE HALAMAN LAIN
+        // JAVA SCRIPT BUAT PINDAH KE HALAMAN LAIN --> HOME ABOUT DAN GALLERY
         // Function to activate the current page link
         function setActiveLink() {
             links.forEach(link => {
