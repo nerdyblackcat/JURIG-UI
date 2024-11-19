@@ -209,17 +209,24 @@
         }
 
         /* Comment */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
         .container {
-            max-width: 900px;
+            max-width: 600px;
             margin: auto;
-            background: rgb(161, 0, 0);
+            background: white;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         h1, h2 {
-            color: #eaeaea;
+            color: #333;
         }
 
         .comment-form {
@@ -235,7 +242,7 @@
         }
 
         .comment-form button {
-            background-color: #be0000;
+            background-color: #9d0000;
             color: white;
             border: none;
             padding: 10px;
@@ -246,22 +253,38 @@
         .comment-form button:hover {
             background-color: #218838;
         }
-
-        .comment {
-            background: #000000;
-            border-left: 4px solid #ffffff;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 4px;
-            word-wrap: break-word; 
-            word-break: break-word;
-            overflow-wrap: break-word;
-    
-            /* Opsional: Jika ingin membatasi tinggi */
-            max-height: 150px; /* Batasi tinggi maksimal */
-            overflow-y: auto; /* Tambahkan scrollbar jika teks melebihi tinggi */
-        }
         
+        .delete-button {
+    position: absolute;
+    top: 10px; /* Jarak dari atas */
+    right: 10px; /* Jarak dari kanan */
+    background-color: #dc3545; /* Warna tombol */
+    color: white;
+    border: none;
+    padding: 5px 10px; /* Ukuran tombol */
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 1; /* Pastikan tombol berada di atas elemen lain */
+    }
+
+    .delete-button:hover {
+    background-color: #c82333; /* Warna saat tombol dihover */
+    }
+
+    .comment {
+    position: relative; /* Tambahkan ini agar tombol dapat diposisikan relatif terhadap kotak komentar */
+    background: #000000;
+    border-left: 4px solid #007bff;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%; /* Pastikan kotak komentar tetap dalam batas */
+    }
+
+          
 
         .comment .name {
             font-weight: bold;
@@ -490,7 +513,7 @@
 
 
     <div class="container">
-        <h1>Kolom Komentar</h1>
+        <h1>Kolom Komentar dengan Role</h1>
         <div class="comment-form">
             <input type="text" id="name" placeholder="Nama Anda" required>
             <textarea id="comment" placeholder="Tulis komentar Anda..." required></textarea>
@@ -502,38 +525,87 @@
     </div>
 
     <script>
-        document.getElementById('submit').addEventListener('click', function() {
-            const name = document.getElementById('name').value;
-            const comment = document.getElementById('comment').value;
+        // Role pengguna saat ini (admin atau user)
+        const currentUserRole = 'admin'; // Ubah menjadi 'user' untuk pengujian non-admin
 
-            if (name && comment) {
-                const commentsSection = document.getElementById('comments-section');
+        // Fungsi untuk menyimpan komentar ke localStorage
+        function saveComments(comments) {
+            localStorage.setItem('comments', JSON.stringify(comments));
+        }
 
+        // Fungsi untuk memuat komentar dari localStorage
+        function loadComments() {
+            const savedComments = localStorage.getItem('comments');
+            return savedComments ? JSON.parse(savedComments) : [];
+        }
+
+        // Fungsi untuk menampilkan komentar di layar
+        function displayComments(comments) {
+            const commentsSection = document.getElementById('comments-section');
+            commentsSection.innerHTML = '<h2>Komentar:</h2>'; // Reset konten sebelumnya
+
+            comments.forEach((comment, index) => {
                 const commentDiv = document.createElement('div');
                 commentDiv.classList.add('comment');
 
                 const nameDiv = document.createElement('div');
                 nameDiv.classList.add('name');
-                nameDiv.textContent = name;
+                nameDiv.textContent = comment.name;
 
                 const textDiv = document.createElement('div');
                 textDiv.classList.add('text');
-                textDiv.textContent = comment;
+                textDiv.textContent = comment.text;
+
+                // Tambahkan tombol hapus jika role adalah admin
+                if (currentUserRole === 'admin') {
+                    const deleteButton = document.createElement('button');
+                    deleteButton.classList.add('delete-button');
+                    deleteButton.textContent = 'Hapus';
+                    deleteButton.addEventListener('click', function () {
+                        deleteComment(index);
+                    });
+                    commentDiv.appendChild(deleteButton);
+                }
 
                 commentDiv.appendChild(nameDiv);
                 commentDiv.appendChild(textDiv);
-
                 commentsSection.appendChild(commentDiv);
+            });
+        }
 
-                // Clear input fields
+        // Fungsi untuk menghapus komentar berdasarkan indeks
+        function deleteComment(index) {
+            const comments = loadComments();
+            comments.splice(index, 1); // Hapus komentar pada indeks tertentu
+            saveComments(comments); // Simpan perubahan ke localStorage
+            displayComments(comments); // Tampilkan ulang komentar
+        }
+
+        // Event Listener untuk menambahkan komentar
+        document.getElementById('submit').addEventListener('click', function () {
+            const name = document.getElementById('name').value;
+            const comment = document.getElementById('comment').value;
+
+            if (name && comment) {
+                const comments = loadComments();
+                comments.push({ name, text: comment }); // Tambahkan komentar baru
+                saveComments(comments); // Simpan ke localStorage
+                displayComments(comments); // Tampilkan komentar di layar
+
+                // Kosongkan input
                 document.getElementById('name').value = '';
                 document.getElementById('comment').value = '';
             } else {
                 alert('Harap isi semua field!');
             }
         });
-    </script>
 
+        // Saat halaman dimuat, tampilkan komentar yang sudah tersimpan
+        document.addEventListener('DOMContentLoaded', function () {
+            const comments = loadComments();
+            displayComments(comments);
+        });
+    </script>
 
 <div class="gallery-container" id="gallery"> <!-- Menambahkan id="gallery" -->
     <h2>GALLERY</h2>
