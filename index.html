@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BZNTNJC632"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-BZNTNJC632');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JURIG UI</title>
@@ -443,7 +452,88 @@
         .nav-links a:focus {
             outline: 2px solid #ffcc00;
         }
-    </style>
+
+    /* ABOUT MAIRA */
+    .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Overlay transparan */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: linear-gradient(to right, #d40303, #6e0202); /* Background merah */
+    color: white; /* Warna teks putih agar kontras */
+    padding: 2rem;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sedikit bayangan untuk memberikan kedalaman */
+}
+
+.popup-content h2 {
+    margin-bottom: 1rem;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.popup-content p {
+    margin-bottom: 1rem;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.popup-content .team {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.team-member {
+    text-align: center;
+    color: white; /* Warna teks anggota tim */
+}
+
+.team-member img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%; /* Membuat gambar menjadi lingkaran */
+    margin-bottom: 0.5rem;
+    border: 2px solid white; /* Border putih untuk memperjelas */
+}
+
+.popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: white; /* Tombol close dengan background putih */
+    color: red; /* Warna teks tombol merah */
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s, color 0.3s;
+}
+
+.popup-close:hover {
+    background: red;
+    color: white;
+    border: 2px solid white; /* Efek hover untuk tombol */
+}
+</style>
+
 </head>
 <body>
     <header>
@@ -459,6 +549,68 @@
         </nav>
     </header>
     
+     <!-- Popup -->
+     <div id="popup" class="popup-overlay">
+        <div class="popup-content">
+            <button class="popup-close" id="closePopup">&times;</button>
+            <h2>About Us</h2>
+            <p>Selamat datang di Jurig UI, sebuah platform yang dikelola oleh kami, mahasiswi Universitas Indonesia jurusan Produksi Media. Kami hadir untuk memberikan wadah bagi eksplorasi cerita mistis yang ada di lingkungan kampus kami. Melalui website ini, kami akan mengungkapkan sejarah masa lalu Universitas Indonesia yang kaya dengan kisah-kisah menakutkan dan menarik. Selamat menjelajahi sisi lain dari Universitas Indonesia yang penuh dengan nuansa mistis!</p>
+            <div class="team">
+                <div class="team-member">
+                    <img src="images/member1.jpg" alt="Member 1">
+                    <p>Alya Maulidian - Project Manager</p>
+                </div>
+                <div class="team-member">
+                    <img src="images/member2.jpg" alt="Member 2">
+                    <p>Muhammad Yusuf - UI/UX Designer</p>
+                </div>
+                <div class="team-member">
+                    <img src="images/member3.jpg" alt="Member 3">
+                    <p>Deva Shizuka - Developer</p>
+                </div>
+                <div class="team-member">
+                    <img src="images/member4.jpg" alt="Member 4">
+                    <p>Nasyia Caesaria - Developer</p>
+                </div>
+                <div class="team-member">
+                    <img src="images/member5.jpg" alt="Member 5">
+                    <p>Chavali Velma - Developer</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    // JavaScript untuk pop-up
+        const aboutLink = document.getElementById('about');
+        const popup = document.getElementById('popup');
+        const closePopup = document.getElementById('closePopup');
+        const links = document.querySelectorAll('.nav-links a');
+    
+        // Event untuk membuka pop-up
+        aboutLink.addEventListener('click', (e) => {
+            e.preventDefault(); // Mencegah scrolling ke anchor
+            popup.style.display = 'flex';
+
+            // Update active link di sini setelah pop-up dibuka
+               setActiveLink();
+
+            // Mengubah hash URL menjadi '#about' saat klik About
+            window.location.hash = '#about';
+
+        });
+    
+        // Event untuk menutup pop-up
+        closePopup.addEventListener('click', () => {
+            popup.style.display = 'none';
+        });
+    
+        // Menutup pop-up jika klik di luar konten
+        popup.addEventListener('click', (e) => {
+            if (e.target === popup) {
+                popup.style.display = 'none';
+            }
+        });</script>
+
     <!-- Image Slider -->
 <section class="slider-container" id="home"> <!-- This ID matches the link target -->
     <div class="slider" id="slider">
@@ -699,16 +851,20 @@
     
        
         // INI BUAT BIAR ADA UNDERLINE DI BAWAH TULISAN HOME ABOUT DAN GALLERY
-        const links = document.querySelectorAll('.nav-links a');
+       
 
         // JAVA SCRIPT BUAT PINDAH KE HALAMAN LAIN --> HOME ABOUT DAN GALLERY
-        // Function to activate the current page link
+        // Function untuk mengaktifkan link yang sedang dipilih
         function setActiveLink() {
             links.forEach(link => {
-                if (window.location.hash === link.hash) {
+                link.classList.remove('active');
+            });
+
+            // Memastikan hash sesuai dengan id yang aktif
+            links.forEach(link => {
+                if (window.location.hash === link.hash || link.id === "about" && popup.style.display === 'flex') {
                     link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
+                
                 }
             });
         }
