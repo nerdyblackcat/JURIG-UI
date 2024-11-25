@@ -59,53 +59,34 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
+      background-color: rgba(0, 0, 0, 0.9);
       z-index: 1000;
       justify-content: center;
       align-items: center;
     }
 
-    .popup-content {
-      padding: 30px;
+    .popup-content img {
+      max-width: 90%;
+      max-height: 90%;
       border-radius: 10px;
-      width: 600px;
-      height: 400px;
-      text-align: center;
-      box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.8);
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      background-color: #222;
-      background-size: cover;
-      background-position: center;
-    }
-
-    .popup-content h2 {
-      color: #f00;
-      font-size: 1.8em;
-      margin-bottom: 10px;
-    }
-
-    .popup-content p {
-      font-size: 1em;
-      line-height: 1.5;
-      overflow-y: auto;
+      box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.8);
     }
 
     .close-btn {
       position: absolute;
-      top: 10px;
-      right: 10px;
+      top: 20px;
+      right: 20px;
       background-color: #f00;
       color: white;
       border: none;
       border-radius: 50%;
-      width: 30px;
-      height: 30px;
+      width: 40px;
+      height: 40px;
       cursor: pointer;
       font-weight: bold;
+      font-size: 1.2rem;
       text-align: center;
-      line-height: 30px;
+      line-height: 40px;
     }
 
     .close-btn:hover {
@@ -115,26 +96,26 @@
 </head>
 <body>
   <h1>Fakultas UI</h1>
-  <p>Klik salah satu ikon untuk melihat detail fakultas.</p>
+  <p>Klik salah satu ikon untuk melihat gambar makara dalam ukuran besar.</p>
 
   <section class="faculty-grid">
-    <div class="faculty-item" onclick="showPopup('Fakultas', 'Deskripsi Fakultas Vokasi.', 'vokasi-bg.png')">
+    <div class="faculty-item" onclick="showPopup('makara-vokasi-large.png')">
       <img src="makara-vokasi.png" alt="Faculty of Vocational Education Program">
       <p>Fakultas Vokasi</p>
     </div>
-    <div class="faculty-item" onclick="showPopup('Fakultas Kesehatan Masyarakat', 'Deskripsi Fakultas Kesehatan Masyarakat.', 'fkm-bg.png')">
+    <div class="faculty-item" onclick="showPopup('makara-fkm-large.png')">
       <img src="makara-fkm.png" alt="Faculty of Public Health">
       <p>Fakultas Kesehatan Masyarakat</p>
     </div>
-    <div class="faculty-item" onclick="showPopup('Fakultas Kedokteran', 'Deskripsi Fakultas Kedokteran.', 'fk-bg.png')">
+    <div class="faculty-item" onclick="showPopup('makara-fk-large.png')">
       <img src="makara-fk.png" alt="Faculty of Medicine">
       <p>Fakultas Kedokteran</p>
     </div>
-    <div class="faculty-item" onclick="showPopup('Fakultas Ekonomi dan Bisnis', 'Deskripsi Fakultas Ekonomi dan Bisnis.', 'feb-bg.png')">
+    <div class="faculty-item" onclick="showPopup('makara-feb-large.png')">
       <img src="makara-feb.png" alt="Faculty of Economics and Business">
       <p>Fakultas Ekonomi dan Bisnis</p>
     </div>
-    <div class="faculty-item" onclick="showPopup('Fakultas Ilmu Komputer', 'Deskripsi Fakultas Ilmu Komputer.', 'fasilkom-bg.png')">
+    <div class="faculty-item" onclick="showPopup('makara-fasilkom-large.png')">
       <img src="makara-fasilkom.png" alt="Faculty of Computer Science">
       <p>Fakultas Ilmu Komputer</p>
     </div>
@@ -142,23 +123,22 @@
 
   <!-- Pop-Up -->
   <div class="popup" id="popup">
+    <button class="close-btn" onclick="closePopup()">×</button>
     <div class="popup-content">
-      <button class="close-btn" onclick="closePopup()">×</button>
-      <h2 id="popup-title"></h2>
-      <p id="popup-description"></p>
+      <img id="popup-image" src="" alt="Popup Image">
     </div>
   </div>
 
   <script>
-    function showPopup(title, description, bgImage) {
-      document.getElementById('popup-title').innerText = title;
-      document.getElementById('popup-description').innerText = description;
+    function showPopup(imageSrc) {
+      // Set the image source in the popup
+      document.getElementById('popup-image').src = imageSrc;
       document.getElementById('popup').style.display = 'flex';
-      document.querySelector('.popup-content').style.backgroundImage = 'url(' + bgImage + ')';
     }
 
     function closePopup() {
       document.getElementById('popup').style.display = 'none';
+      document.getElementById('popup-image').src = ''; // Clear the image source
     }
   </script>
 </body>
