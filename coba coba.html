@@ -1,105 +1,142 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Komentar</title>
-    <style>
-     body {
-            background-color: #ff0000; /* Warna merah */
-            color: #fff; /* Warna teks putih */
-            font-family: sans-serif; /* Font sans-serif */
-            margin: 0; /* Margin badan 0 */
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pop-Up Versi 2</title>
+  <style>
+    /* Grid fakultas untuk tata letak */
+    .faculty-grid-v2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 15px;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
 
-        header {
-            padding: 10px;
-            background-color: #ff0000; /* Warna merah */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .faculty-item-v2 {
+      aspect-ratio: 1;
+      background-color: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 10px;
+      transition: transform 0.3s;
+    }
 
-        .logo {
-            display: flex;
-            align-items: center;
-        }
+    .faculty-item-v2 img {
+      width: 80%;
+      height: 80%;
+      object-fit: cover;
+    }
 
-        .logo img {
-            width: 30px; /* Lebar logo */
-            margin-right: 10px; /* Margin kanan logo */
-        }
+    .faculty-item-v2:hover {
+      transform: scale(1.05);
+    }
 
-        nav ul {
-            list-style: none; /* Hilangkan bullet point pada list */
-            margin: 0; /* Margin list 0 */
-            padding: 0; /* Padding list 0 */
-            display: flex;
-            align-items: center;
-        }
+    /* Pop-Up Versi 2 */
+    .popup-v2 {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 2000; /* Z-index lebih tinggi */
+      align-items: center;
+      justify-content: center;
+    }
 
-        nav li {
-            margin-left: 20px; /* Margin kiri item list */
-        }
+    .popup-content-v2 {
+      background: #333;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+      color: #fff;
+    }
 
-        nav a {
-            text-decoration: none; /* Hilangkan garis bawah pada link */
-            color: #fff; /* Warna link putih */
-        }
+    .popup-content-v2 img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
 
-        .container {
-            padding: 20px;
-            background-color: #fff; /* Warna putih */
-            margin: 20px auto; /* Margin kiri kanan auto, margin atas bawah 20px */
-            max-width: 800px; /* Lebar maksimal container */
-            border-radius: 10px; /* Sudut membulat container */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow container */
-        }
+    .popup-content-v2 h2 {
+      color: #0f0;
+      margin-bottom: 10px;
+    }
 
-        h1 {
-            font-size: 2em; /* Ukuran font 2em */
-            margin-bottom: 10px; /* Margin bawah heading */
-        }
+    .popup-content-v2 p {
+      font-size: 1em;
+      line-height: 1.5;
+    }
 
-        #commentForm {
-            margin-bottom: 20px;
-        }
+    .close-btn-v2 {
+      background-color: #00ff00;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 1em;
+      margin-top: 15px;
+    }
 
-        #commentInput {
-            width: 100%; /* Lebar textarea 100% */
-            padding: 10px; /* Padding textarea */
-    </style>
+    .close-btn-v2:hover {
+      background-color: #0c0;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Komentar</h1>
-        <form id="commentForm">
-            <textarea id="commentInput" placeholder="Tulis komentar Anda..." required></textarea>
-            <button type="submit">Kirim</button>
-        </form>
-        <div id="commentsSection">
-            <h2>Komentar:</h2>
-            <ul id="commentsList"></ul>
-        </div>
+  <h1>Fakultas UI - Pop-Up Versi 2</h1>
+  <p>Klik logo di bawah untuk melihat informasi (Pop-Up Versi 2).</p>
+
+  <section class="faculty-grid-v2">
+    <!-- Elemen grid versi 2 -->
+    <div class="faculty-item-v2" onclick="showPopupV2('Fakultas Teknik', 'makara-ft.png', 'Informasi detail tentang Fakultas Teknik.')">
+      <img src="makara-ft.png" alt="Faculty of Engineering">
     </div>
+    <div class="faculty-item-v2" onclick="showPopupV2('Fakultas Farmasi', 'makara-farmasi.png', 'Informasi detail tentang Fakultas Farmasi.')">
+      <img src="makara-farmasi.png" alt="Faculty of Pharmacy">
+    </div>
+    <div class="faculty-item-v2" onclick="showPopupV2('Fakultas Ilmu Komputer', 'makara-fasilkom.png', 'Informasi detail tentang Fakultas Ilmu Komputer.')">
+      <img src="makara-fasilkom.png" alt="Faculty of Computer Science">
+    </div>
+  </section>
 
-    <script>
-        document.getElementById('commentForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Mencegah pengiriman form
+  <!-- Elemen Pop-Up Versi 2 -->
+  <div class="popup-v2" id="popup-v2">
+    <div class="popup-content-v2">
+      <img id="popup-image-v2" src="" alt="Popup Image">
+      <h2 id="popup-title-v2"></h2>
+      <p id="popup-description-v2"></p>
+      <button class="close-btn-v2" onclick="closePopupV2()">Tutup</button>
+    </div>
+  </div>
 
-            const commentInput = document.getElementById('commentInput');
-            const commentText = commentInput.value;
+  <script>
+    // Fungsi untuk menampilkan Pop-Up Versi 2
+    function showPopupV2(title, imageSrc, description) {
+      // Mengisi konten pop-up
+      document.getElementById('popup-title-v2').innerText = title;
+      document.getElementById('popup-image-v2').src = imageSrc;
+      document.getElementById('popup-description-v2').innerText = description;
 
-            if (commentText) {
-                const commentsList = document.getElementById('commentsList');
-                const newComment = document.createElement('li');
-                newComment.classList.add('comment');
-                newComment.textContent = commentText;
+      // Menampilkan pop-up
+      document.getElementById('popup-v2').style.display = 'flex';
+    }
 
-                commentsList.appendChild(newComment);
-                commentInput.value = ''; // Mengosongkan textarea setelah komentar dikirim
-            }
-        });
-    </script>
+    // Fungsi untuk menutup Pop-Up Versi 2
+    function closePopupV2() {
+      // Menyembunyikan pop-up
+      document.getElementById('popup-v2').style.display = 'none';
+    }
+  </script>
 </body>
 </html>

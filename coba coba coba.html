@@ -1,193 +1,160 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kolom Komentar dengan Role</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1, h2 {
-            color: #333;
-        }
-
-        .comment-form {
-            margin-bottom: 20px;
-        }
-
-        .comment-form input, .comment-form textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .comment-form button {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .comment-form button:hover {
-            background-color: #218838;
-        }
-        
-        .delete-button {
-    position: absolute;
-    top: 10px; /* Jarak dari atas */
-    right: 10px; /* Jarak dari kanan */
-    background-color: #dc3545; /* Warna tombol */
-    color: white;
-    border: none;
-    padding: 5px 10px; /* Ukuran tombol */
-    border-radius: 4px;
-    cursor: pointer;
-    z-index: 1; /* Pastikan tombol berada di atas elemen lain */
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faculty Pop-Up</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #111, #222);
+      color: white;
+      text-align: center;
     }
 
-    .delete-button:hover {
-    background-color: #c82333; /* Warna saat tombol dihover */
+    .faculty-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 15px;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
     }
 
-    .comment {
-    position: relative; /* Tambahkan ini agar tombol dapat diposisikan relatif terhadap kotak komentar */
-    background: #f8f9fa;
-    border-left: 4px solid #007bff;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 4px;
-    word-wrap: break-word;
-    word-break: break-word;
-    overflow-wrap: break-word;
-    max-width: 100%; /* Pastikan kotak komentar tetap dalam batas */
+    .faculty-item {
+      cursor: pointer;
     }
 
-          
+    .faculty-item img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      transition: transform 0.2s;
+    }
 
-        .comment .name {
-            font-weight: bold;
-            color: #007bff;
-        }
+    .faculty-item img:hover {
+      transform: scale(1.1);
+    }
 
-        .comment .text {
-            margin-top: 5px;
-        }
+    /* Pop-Up Styles */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
 
-        
-    </style>
+    .popup-content {
+      background-color: #222;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 600px;
+      text-align: left;
+      box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.8);
+      position: relative;
+    }
+
+    .popup-content img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .popup-content h2 {
+      color: #f00;
+      font-size: 1.8em;
+      margin-bottom: 10px;
+    }
+
+    .popup-content p {
+      font-size: 1em;
+      line-height: 1.5;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #f00;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      text-align: center;
+      line-height: 30px;
+    }
+
+    .close-btn:hover {
+      background-color: #c00;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Kolom Komentar dengan Role</h1>
-        <div class="comment-form">
-            <input type="text" id="name" placeholder="Nama Anda" required>
-            <textarea id="comment" placeholder="Tulis komentar Anda..." required></textarea>
-            <button id="submit">Kirim Komentar</button>
-        </div>
-        <div class="comments-section" id="comments-section">
-            <h2>Komentar:</h2>
-        </div>
+  <h1>Fakultas UI</h1>
+  <p>Klik salah satu ikon untuk melihat detail fakultas.</p>
+
+  <section class="faculty-grid">
+    <div class="faculty-item" onclick="showPopup('Fakultas Vokasi', 'makara-vokasi.png', 'Deskripsi Fakultas Vokasi.')">
+      <img src="makara-vokasi.png" alt="Faculty of Vocational Education Program">  
     </div>
+    <div class="faculty-item" onclick="showPopup('Fakultas Kesehatan Masyarakat', 'makara-fkm.png', 'Deskripsi Fakultas Kesehatan Masyarakat.')">
+      <img src="makara-fkm.png" alt="Faculty of Public Health">
+    </div>
+    <div class="faculty-item" onclick="showPopup('Fakultas Kedokteran', 'makara-fk.png', 'Deskripsi Fakultas Kedokteran.')">
+      <img src="makara-fk.png" alt="Faculty of Medicine">
+    </div>
+    <div class="faculty-item" onclick="showPopup('Fakultas Ekonomi dan Bisnis', 'makara-feb.png', 'Deskripsi Fakultas Ekonomi dan Bisnis.')">
+      <img src="makara-feb.png" alt="Faculty of Economics and Business">
+    </div>
+    <div class="faculty-item" onclick="showPopup('Fakultas Ilmu Komputer', 'makara-fasilkom.png', 'Deskripsi Fakultas Ilmu Komputer.')">
+      <img src="makara-fasilkom.png" alt="Faculty of Computer Science">
+    </div>
+    <div class="faculty-item" onclick="showPopup('Fakultas Farmasi', 'makara-farmasi.png', 'Deskripsi Fakultas Farmasi.')">
+      <img src="makara-farmasi.png" alt="Faculty of Pharmacy">
+    </div>
+    <div class="faculty-item" onclick="showPopup('Fakultas Teknik', 'makara-ft.png', 'Deskripsi Fakultas Teknik.')">
+      <img src="makara-ft.png" alt="Faculty of Engineering">
+    </div>
+    <div class="faculty-item" onclick="showPopup('Fakultas Ilmu Budaya', 'makara-fib.png', 'Deskripsi Fakultas Ilmu Budaya.')">
+      <img src="makara-fib.png" alt="Faculty of Humanities">
+    </div>
+    <div class="faculty-item" onclick="showPopup('Universitas Indonesia', 'makara-ui.png', 'Deskripsi Umum Universitas Indonesia.')">
+      <img src="makara-ui.png" alt="UI">
+    </div>
+  </section>
 
-    <script>
-        // Role pengguna saat ini (admin atau user)
-        const currentUserRole = 'admin'; // Ubah menjadi 'user' untuk pengujian non-admin
+  <!-- Pop-Up -->
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <button class="close-btn" onclick="closePopup()">×</button>
+      <img id="popup-image" src="" alt="Popup Image">
+      <h2 id="popup-title"></h2>
+      <p id="popup-description"></p>
+    </div>
+  </div>
 
-        // Fungsi untuk menyimpan komentar ke localStorage
-        function saveComments(comments) {
-            localStorage.setItem('comments', JSON.stringify(comments));
-        }
+  <script>
+    function showPopup(title, imageSrc, description) {
+      document.getElementById('popup-title').innerText = title;
+      document.getElementById('popup-image').src = imageSrc;
+      document.getElementById('popup-description').innerText = description;
+      document.getElementById('popup').style.display = 'flex';
+    }
 
-        // Fungsi untuk memuat komentar dari localStorage
-        function loadComments() {
-            const savedComments = localStorage.getItem('comments');
-            return savedComments ? JSON.parse(savedComments) : [];
-        }
-
-        // Fungsi untuk menampilkan komentar di layar
-        function displayComments(comments) {
-            const commentsSection = document.getElementById('comments-section');
-            commentsSection.innerHTML = '<h2>Komentar:</h2>'; // Reset konten sebelumnya
-
-            comments.forEach((comment, index) => {
-                const commentDiv = document.createElement('div');
-                commentDiv.classList.add('comment');
-
-                const nameDiv = document.createElement('div');
-                nameDiv.classList.add('name');
-                nameDiv.textContent = comment.name;
-
-                const textDiv = document.createElement('div');
-                textDiv.classList.add('text');
-                textDiv.textContent = comment.text;
-
-                // Tambahkan tombol hapus jika role adalah admin
-                if (currentUserRole === 'admin') {
-                    const deleteButton = document.createElement('button');
-                    deleteButton.classList.add('delete-button');
-                    deleteButton.textContent = 'Hapus';
-                    deleteButton.addEventListener('click', function () {
-                        deleteComment(index);
-                    });
-                    commentDiv.appendChild(deleteButton);
-                }
-
-                commentDiv.appendChild(nameDiv);
-                commentDiv.appendChild(textDiv);
-                commentsSection.appendChild(commentDiv);
-            });
-        }
-
-        // Fungsi untuk menghapus komentar berdasarkan indeks
-        function deleteComment(index) {
-            const comments = loadComments();
-            comments.splice(index, 1); // Hapus komentar pada indeks tertentu
-            saveComments(comments); // Simpan perubahan ke localStorage
-            displayComments(comments); // Tampilkan ulang komentar
-        }
-
-        // Event Listener untuk menambahkan komentar
-        document.getElementById('submit').addEventListener('click', function () {
-            const name = document.getElementById('name').value;
-            const comment = document.getElementById('comment').value;
-
-            if (name && comment) {
-                const comments = loadComments();
-                comments.push({ name, text: comment }); // Tambahkan komentar baru
-                saveComments(comments); // Simpan ke localStorage
-                displayComments(comments); // Tampilkan komentar di layar
-
-                // Kosongkan input
-                document.getElementById('name').value = '';
-                document.getElementById('comment').value = '';
-            } else {
-                alert('Harap isi semua field!');
-            }
-        });
-
-        // Saat halaman dimuat, tampilkan komentar yang sudah tersimpan
-        document.addEventListener('DOMContentLoaded', function () {
-            const comments = loadComments();
-            displayComments(comments);
-        });
-    </script>
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+  </script>
 </body>
 </html>
