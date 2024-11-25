@@ -159,34 +159,126 @@
         }
 
         /* Faculty Section */
-        .faculty-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 kolom pada layar besar */
-            gap: 1rem;
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #111, #222);
+      color: white;
+      text-align: center;
+    }
 
-        /* Mengatur gambar agar responsif */
-        .faculty-item img {
-         width: 100%;
-         height: 100%;
-         object-fit: cover; /* Agar gambar tetap terjaga proporsinya */
-        }
+    .faculty-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
 
-        .faculty-item {
-            aspect-ratio: 1;
-            background-color: #000000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.3s;
-        }
+    .faculty-item {
+      text-align: center;
+      cursor: pointer;
+    }
 
-        .faculty-item:hover {
-            transform: scale(1.05);
-        }
+    .faculty-item img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      transition: transform 0.2s;
+    }
+
+    .faculty-item img:hover {
+      transform: scale(1.1);
+    }
+
+    .faculty-item p {
+      margin: 10px 0 0;
+      font-size: 1rem;
+      color: #ddd;
+      transition: color 0.3s;
+    }
+
+    .faculty-item:hover p {
+      color: #f00;
+    }
+
+    /* Pop-Up Styles */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .popup-content {
+      position: relative;
+      max-width: 70%;
+      max-height: 70%;
+      text-align: center;
+    }
+
+    .popup-content img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 10px;
+      box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.8);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #f00;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.2rem;
+      text-align: center;
+      line-height: 40px;
+    }
+
+    .close-btn:hover {
+      background-color: #c00;
+    }
+
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 50%;
+      z-index: 1001;
+    }
+
+    .nav-btn:hover {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .nav-btn.prev {
+      left: 20px;
+    }
+
+    .nav-btn.next {
+      right: 20px;
+    }
 
         /* Footer */
         footer {
@@ -544,7 +636,7 @@
                     <p>Alya Maulidian - Project Manager</p>
                 </div>
                 <div class="team-member">
-                    <img src="foto-yusuf.png" alt="Muhammad Yusuf>
+                    <img src="foto-yusuf.png" alt="Muhammad Yusuf">
                  <p>Muhammad Yusuf - UI/UX Designer</p>
                 </div>
                 <div class="team-member">
@@ -565,7 +657,8 @@
     <script>
     // JavaScript untuk pop-up
         const aboutLink = document.getElementById('about');
-        const popup = document.getElementById('popup');
+        const popup = document.getElementById('popup'); // Popup untuk About Us
+        const imagePopup = document.getElementById('image-popup'); // Popup untuk gambar
         const closePopup = document.getElementById('closePopup');
         const links = document.querySelectorAll('.nav-links a');
     
@@ -609,42 +702,92 @@
     </div>
 </section>
 
-    <section class="history">
-        <h2>FIND THE JURIG</h2>
-    
-    </section>
+<h1>Makara Fakultas Universitas Indonesia</h1>
+  
+<section class="faculty-grid">
+  <div class="faculty-item" onclick="showPopup(['Hantu/JALAN CINTA-HANTU.png', 'makara-fib-2.png'])">
+    <img src="makara/makara-ui.png" alt="ui">
+    <p>UNIVERSITAS INDONESIA</p>
+  </div>
+  <div class="faculty-item" onclick="showPopup(['makara-fmipa-1.png', 'makara-fmipa-2.png'])">
+    <img src="makara/makara-fib.png" alt="FIB">
+    <p>Fakultas Ilmu Budaya</p>
+  </div>
+  <div class="faculty-item" onclick="showPopup(['makara-ft-1.png', 'makara-ft-2.png'])">
+    <img src="makara/makara-fmipa.png" alt="FMIPA">
+    <p>Fakultas Matematika dan Ipa</p>
+  </div>
+  <div class="faculty-item" onclick="showPopup(['makara-feb-1.png', 'makara-feb-2.png'])">
+    <img src="makara/makara-feb.png" alt="FEB">
+    <p>Fakultas Ekonomi dan Bisnis</p>
+  </div>
+  <div class="faculty-item" onclick="showPopup(['makara-fpsi-1.png', 'makara-fpsi-2.png'])">
+    <img src="makara/makara-fpsi.png" alt="FPSI">
+    <p>Fakultas Psikologi</p>
+  </div>
+  <div class="faculty-item" onclick="showPopup(['Hantu/HUKUM-HANTU.png', 'makara-fisip-2.png'])">
+    <img src="makara/makara-fh.png" alt="FH">
+    <p>Fakultas Hukum</p>
+  </div>
+  <div class="faculty-item" onclick="showPopup(['makara-fk-1.png', 'makara-fk-2.png'])">
+    <img src="makara/makara-fk.png" alt="FK">
+    <p>Fakultas Kedokteran</p>
+  </div>
+  <div class="faculty-item" onclick="showPopup(['makara-fkm-1.png', 'makara-fkm-2.png'])">
+    <img src="makara/makara-fkm.png" alt="FKM">
+    <p>Fakultas Kesehatan Masyarakat</p>
+  </div>
+  <div class="faculty-item" onclick="showPopup(['makara-fasilkom-1.png', 'makara-fasilkom-2.png'])">
+    <img src="makara/makara-fasilkom.png" alt="FASILKOM">
+    <p>Fakultas Ilmu Komputer</p>
+  </div>
+</section>
 
-    <section class="faculty-grid">
-        <!-- Faculty logos -->
-        <div class="faculty-item">
-            <img src="makara-vokasi.png" alt="Faculty of Vocational Education Program">  
-        </div>
-        <div class="faculty-item">
-            <img src="makara-fkm.png" alt="Faculty of Public Health">
-        </div>
-        <div class="faculty-item">
-            <img src="makara-fk.png" alt="Faculty of Medicine">
-        </div>
-        <div class="faculty-item">
-            <img src="makara-feb.png" alt="Faculty of Economics and Business">
-        </div>
-        <div class="faculty-item">
-            <img src="makara-fasilkom.png" alt="Faculty of Computer Science">
-        </div>
-        <div class="faculty-item">
-            <img src="makara-farmasi.png" alt="Faculty of Pharmacy">
-        </div>
-        <div class="faculty-item">
-            <img src="makara-ft.png" alt="Faculty of Engineering">
-        </div>
-        <div class="faculty-item">
-            <img src="makara-fib.png" alt="Faculty of Humanities">
-        </div>
-        <div class="faculty-item">
-            <img src="makara-ui.png" alt="UI">
-        </div>
-    </section>
+<!-- Pop-Up -->
+<div class="popup" id="image-popup">
+  <button class="close-btn" onclick="closePopup()">×</button>
+  <button class="nav-btn prev" onclick="prevSlide()">❮</button>
+  <div class="popup-content">
+    <img id="popup-image" src="" alt="Popup Image">
+  </div>
+  <button class="nav-btn next" onclick="nextSlide()">❯</button>
+</div>
 
+<script>
+    let currentImageIndex = 0;
+    let images = [];
+
+    function showImagePopup(imageArray) {
+      images = imageArray;
+      currentImageIndex = 0;
+      updateImagePopup();
+      imagePopup.style.display = 'flex';
+    }
+
+    function updatePopupImage() {
+      const popupImage = document.getElementById('popup-image');
+      popupImage.src = images[currentImageIndex];
+    }
+
+    function closeImagePopup() {
+      imagePopup.style.display = 'none';
+      document.getElementById('popup-image').src = ''; // Clear the image source
+    }
+
+    function nextSlide() {
+      if (images.length > 0) {
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        updatePopupImage();
+      }
+    }
+
+    function prevSlide() {
+      if (images.length > 0) {
+        currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+        updatePopupImage();
+      }
+    }
+  </script>
 
 
     <div class="comments-container">
