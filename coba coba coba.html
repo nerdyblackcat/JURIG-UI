@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Faculty Pop-Up</title>
+  <title>Makara UI</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -65,9 +65,16 @@
       align-items: center;
     }
 
-    .popup-content img {
+    .popup-content {
+      position: relative;
       max-width: 90%;
       max-height: 90%;
+      text-align: center;
+    }
+
+    .popup-content img {
+      max-width: 100%;
+      max-height: 100%;
       border-radius: 10px;
       box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.8);
     }
@@ -92,31 +99,73 @@
     .close-btn:hover {
       background-color: #c00;
     }
+
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 50%;
+      z-index: 1001;
+    }
+
+    .nav-btn:hover {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .nav-btn.prev {
+      left: 20px;
+    }
+
+    .nav-btn.next {
+      right: 20px;
+    }
   </style>
 </head>
 <body>
-  <h1>Fakultas UI</h1>
-  <p>Klik salah satu ikon untuk melihat gambar makara dalam ukuran besar.</p>
+  <h1>Makara Fakultas Universitas Indonesia</h1>
+  <p>Klik salah satu ikon untuk melihat gambar makara fakultas.</p>
 
   <section class="faculty-grid">
-    <div class="faculty-item" onclick="showPopup('makara-vokasi-large.png')">
-      <img src="makara-vokasi.png" alt="Faculty of Vocational Education Program">
-      <p>Fakultas Vokasi</p>
+    <div class="faculty-item" onclick="showPopup(['makara-fib-1.png', 'makara-fib-2.png'])">
+      <img src="makara-fib.png" alt="FIB">
+      <p>Fakultas Ilmu Pengetahuan Budaya</p>
     </div>
-    <div class="faculty-item" onclick="showPopup('makara-fkm-large.png')">
-      <img src="makara-fkm.png" alt="Faculty of Public Health">
-      <p>Fakultas Kesehatan Masyarakat</p>
+    <div class="faculty-item" onclick="showPopup(['makara-fmipa-1.png', 'makara-fmipa-2.png'])">
+      <img src="makara-fmipa.png" alt="FMIPA">
+      <p>Fakultas Matematika dan IPA</p>
     </div>
-    <div class="faculty-item" onclick="showPopup('makara-fk-large.png')">
-      <img src="makara-fk.png" alt="Faculty of Medicine">
-      <p>Fakultas Kedokteran</p>
+    <div class="faculty-item" onclick="showPopup(['makara-ft-1.png', 'makara-ft-2.png'])">
+      <img src="makara-ft.png" alt="FT">
+      <p>Fakultas Teknik</p>
     </div>
-    <div class="faculty-item" onclick="showPopup('makara-feb-large.png')">
-      <img src="makara-feb.png" alt="Faculty of Economics and Business">
+    <div class="faculty-item" onclick="showPopup(['makara-feb-1.png', 'makara-feb-2.png'])">
+      <img src="makara-feb.png" alt="FEB">
       <p>Fakultas Ekonomi dan Bisnis</p>
     </div>
-    <div class="faculty-item" onclick="showPopup('makara-fasilkom-large.png')">
-      <img src="makara-fasilkom.png" alt="Faculty of Computer Science">
+    <div class="faculty-item" onclick="showPopup(['makara-fpsi-1.png', 'makara-fpsi-2.png'])">
+      <img src="makara-fpsi.png" alt="FPSI">
+      <p>Fakultas Psikologi</p>
+    </div>
+    <div class="faculty-item" onclick="showPopup(['makara-fisip-1.png', 'makara-fisip-2.png'])">
+      <img src="makara-fisip.png" alt="FISIP">
+      <p>Fakultas Ilmu Sosial dan Ilmu Politik</p>
+    </div>
+    <div class="faculty-item" onclick="showPopup(['makara-fk-1.png', 'makara-fk-2.png'])">
+      <img src="makara-fk.png" alt="FK">
+      <p>Fakultas Kedokteran</p>
+    </div>
+    <div class="faculty-item" onclick="showPopup(['makara-fkm-1.png', 'makara-fkm-2.png'])">
+      <img src="makara-fkm.png" alt="FKM">
+      <p>Fakultas Kesehatan Masyarakat</p>
+    </div>
+    <div class="faculty-item" onclick="showPopup(['makara-fasilkom-1.png', 'makara-fasilkom-2.png'])">
+      <img src="makara-fasilkom.png" alt="FASILKOM">
       <p>Fakultas Ilmu Komputer</p>
     </div>
   </section>
@@ -124,21 +173,46 @@
   <!-- Pop-Up -->
   <div class="popup" id="popup">
     <button class="close-btn" onclick="closePopup()">×</button>
+    <button class="nav-btn prev" onclick="prevSlide()">❮</button>
     <div class="popup-content">
       <img id="popup-image" src="" alt="Popup Image">
     </div>
+    <button class="nav-btn next" onclick="nextSlide()">❯</button>
   </div>
 
   <script>
-    function showPopup(imageSrc) {
-      // Set the image source in the popup
-      document.getElementById('popup-image').src = imageSrc;
+    let currentImageIndex = 0;
+    let images = [];
+
+    function showPopup(imageArray) {
+      images = imageArray;
+      currentImageIndex = 0;
+      updatePopupImage();
       document.getElementById('popup').style.display = 'flex';
+    }
+
+    function updatePopupImage() {
+      const popupImage = document.getElementById('popup-image');
+      popupImage.src = images[currentImageIndex];
     }
 
     function closePopup() {
       document.getElementById('popup').style.display = 'none';
       document.getElementById('popup-image').src = ''; // Clear the image source
+    }
+
+    function nextSlide() {
+      if (images.length > 0) {
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        updatePopupImage();
+      }
+    }
+
+    function prevSlide() {
+      if (images.length > 0) {
+        currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+        updatePopupImage();
+      }
     }
   </script>
 </body>
