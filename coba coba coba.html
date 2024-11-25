@@ -1,157 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faculty Grid with Popup</title>
-    <style>
-        /* Gaya untuk grid */
-        .faculty-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 kolom pada layar besar */
-            gap: 1rem;
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faculty Pop-Up</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #111, #222);
+      color: white;
+      text-align: center;
+    }
 
-        .faculty-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Agar gambar tetap terjaga proporsinya */
-        }
+    .faculty-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
 
-        .faculty-item {
-            aspect-ratio: 1;
-            background-color: #000000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.3s;
-            cursor: pointer;
-        }
+    .faculty-item {
+      text-align: center;
+      cursor: pointer;
+    }
 
-        .faculty-item:hover {
-            transform: scale(1.05);
-        }
+    .faculty-item img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      transition: transform 0.2s;
+    }
 
-        /* Gaya untuk pop-up */
-        .popup-modal {
-            display: none; /* Tersembunyi secara default */
-            position: fixed;
-            z-index: 1000;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8); /* Latar belakang gelap transparan */
-            justify-content: center;
-            align-items: center;
-        }
+    .faculty-item img:hover {
+      transform: scale(1.1);
+    }
 
-        .popup-content {
-            width: 200px;
-            height: 200px;
-            object-fit: contain; /* Sesuaikan ukuran dengan proporsi */
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-        }
+    .faculty-item p {
+      margin: 10px 0 0;
+      font-size: 1rem;
+      color: #ddd;
+      transition: color 0.3s;
+    }
 
-        .close-popup {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: #fff;
-            font-size: 2rem;
-            font-weight: bold;
-            cursor: pointer;
-        }
-    </style>
+    .faculty-item:hover p {
+      color: #f00;
+    }
+
+    /* Pop-Up Styles */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .popup-content {
+      padding: 30px;
+      border-radius: 10px;
+      width: 600px;
+      height: 400px;
+      text-align: center;
+      box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.8);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #222;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .popup-content h2 {
+      color: #f00;
+      font-size: 1.8em;
+      margin-bottom: 10px;
+    }
+
+    .popup-content p {
+      font-size: 1em;
+      line-height: 1.5;
+      overflow-y: auto;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #f00;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      text-align: center;
+      line-height: 30px;
+    }
+
+    .close-btn:hover {
+      background-color: #c00;
+    }
+  </style>
 </head>
 <body>
+  <h1>Fakultas UI</h1>
+  <p>Klik salah satu ikon untuk melihat detail fakultas.</p>
 
-    <!-- Grid Faculty -->
-    <section class="faculty-grid">
-        <div class="faculty-item">
-            <img src="makara-vokasi.png" alt="Faculty of Vocational Education Program">
-        </div>
-        <div class="faculty-item">
-            <img src="makara-fkm.png" alt="Faculty of Public Health">
-        </div>
-        <div class="faculty-item">
-            <img src="makara-fk.png" alt="Faculty of Medicine">
-        </div>
-        <div class="faculty-item">
-            <img src="makara-feb.png" alt="Faculty of Economics and Business">
-        </div>
-        <div class="faculty-item">
-            <img src="makara-fasilkom.png" alt="Faculty of Computer Science">
-        </div>
-        <div class="faculty-item">
-            <img src="makara-farmasi.png" alt="Faculty of Pharmacy">
-        </div>
-        <div class="faculty-item">
-            <img src="makara-ft.png" alt="Faculty of Engineering">
-        </div>
-        <div class="faculty-item">
-            <img src="makara-fib.png" alt="Faculty of Humanities">
-        </div>
-        <div class="faculty-item">
-            <img src="makara-ui.png" alt="UI">
-        </div>
-    </section>
-
-    <!-- Popup Modal -->
-    <div class="popup-modal">
-        <span class="close-popup">&times;</span>
-        <img class="popup-content" alt="Popup Image">
+  <section class="faculty-grid">
+    <div class="faculty-item" onclick="showPopup('Fakultas', 'Deskripsi Fakultas Vokasi.', 'vokasi-bg.png')">
+      <img src="makara-vokasi.png" alt="Faculty of Vocational Education Program">
+      <p>Fakultas Vokasi</p>
     </div>
+    <div class="faculty-item" onclick="showPopup('Fakultas Kesehatan Masyarakat', 'Deskripsi Fakultas Kesehatan Masyarakat.', 'fkm-bg.png')">
+      <img src="makara-fkm.png" alt="Faculty of Public Health">
+      <p>Fakultas Kesehatan Masyarakat</p>
+    </div>
+    <div class="faculty-item" onclick="showPopup('Fakultas Kedokteran', 'Deskripsi Fakultas Kedokteran.', 'fk-bg.png')">
+      <img src="makara-fk.png" alt="Faculty of Medicine">
+      <p>Fakultas Kedokteran</p>
+    </div>
+    <div class="faculty-item" onclick="showPopup('Fakultas Ekonomi dan Bisnis', 'Deskripsi Fakultas Ekonomi dan Bisnis.', 'feb-bg.png')">
+      <img src="makara-feb.png" alt="Faculty of Economics and Business">
+      <p>Fakultas Ekonomi dan Bisnis</p>
+    </div>
+    <div class="faculty-item" onclick="showPopup('Fakultas Ilmu Komputer', 'Deskripsi Fakultas Ilmu Komputer.', 'fasilkom-bg.png')">
+      <img src="makara-fasilkom.png" alt="Faculty of Computer Science">
+      <p>Fakultas Ilmu Komputer</p>
+    </div>
+  </section>
 
-    <script>
-        // Ambil elemen yang diperlukan
-        const popupModal = document.querySelector('.popup-modal');
-        const popupContent = document.querySelector('.popup-content');
-        const closePopup = document.querySelector('.close-popup');
-        const facultyItems = document.querySelectorAll('.faculty-item img');
+  <!-- Pop-Up -->
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <button class="close-btn" onclick="closePopup()">×</button>
+      <h2 id="popup-title"></h2>
+      <p id="popup-description"></p>
+    </div>
+  </div>
 
-        // Array gambar untuk pop-up
-        const popupImages = {
-            "makara-vokasi.png": "popup-vokasi.png",
-            "makara-fkm.png": "popup-fkm.png",
-            "makara-fk.png": "popup-fk.png",
-            "makara-feb.png": "popup-feb.png",
-            "makara-fasilkom.png": "popup-fasilkom.png",
-            "makara-farmasi.png": "popup-farmasi.png",
-            "makara-ft.png": "popup-ft.png",
-            "makara-fib.png": "popup-fib.png",
-            "makara-ui.png": "popup-ui.png"
-        };
+  <script>
+    function showPopup(title, description, bgImage) {
+      document.getElementById('popup-title').innerText = title;
+      document.getElementById('popup-description').innerText = description;
+      document.getElementById('popup').style.display = 'flex';
+      document.querySelector('.popup-content').style.backgroundImage = 'url(' + bgImage + ')';
+    }
 
-        // Tambahkan event listener ke setiap gambar
-        facultyItems.forEach(img => {
-            img.addEventListener('click', () => {
-                const popupImageSrc = popupImages[img.src.split('/').pop()]; // Ambil gambar dari mapping
-                if (popupImageSrc) {
-                    popupContent.src = popupImageSrc; // Atur sumber gambar di pop-up
-                } else {
-                    popupContent.src = img.src; // Default ke gambar asli jika tidak ada dalam mapping
-                }
-                popupModal.style.display = 'flex'; // Tampilkan pop-up
-            });
-        });
-
-        // Tutup pop-up ketika tombol close diklik
-        closePopup.addEventListener('click', () => {
-            popupModal.style.display = 'none';
-        });
-
-        // Tutup pop-up ketika klik di luar gambar
-        popupModal.addEventListener('click', (e) => {
-            if (e.target === popupModal) {
-                popupModal.style.display = 'none';
-            }
-        });
-    </script>
-
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+  </script>
 </body>
 </html>
