@@ -160,125 +160,125 @@
 
         /* Faculty Section */
         body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(to bottom, #111, #222);
-      color: white;
-      text-align: center;
-    }
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #111, #222);
+            color: white;
+            text-align: center;
+        }
 
-    .faculty-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 15px;
-      padding: 20px;
-      max-width: 800px;
-      margin: auto;
-    }
+        .faculty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
 
-    .faculty-item {
-      text-align: center;
-      cursor: pointer;
-    }
+        .faculty-item {
+            text-align: center;
+            cursor: pointer;
+        }
 
-    .faculty-item img {
-      width: 120px;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 50%;
-      transition: transform 0.2s;
-    }
+        .faculty-item img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
 
-    .faculty-item img:hover {
-      transform: scale(1.1);
-    }
+        .faculty-item img:hover {
+            transform: scale(1.1);
+        }
 
-    .faculty-item p {
-      margin: 10px 0 0;
-      font-size: 1rem;
-      color: #ddd;
-      transition: color 0.3s;
-    }
+        .faculty-item p {
+            margin: 10px 0 0;
+            font-size: 1rem;
+            color: #ddd;
+            transition: color 0.3s;
+        }
 
-    .faculty-item:hover p {
-      color: #f00;
-    }
+        .faculty-item:hover p {
+            color: #f00;
+        }
 
-    /* Pop-Up Styles */
-    .popup {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.9);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-    }
+        /* Pop-Up Styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
 
-    .popup-content {
-      position: relative;
-      max-width: 70%;
-      max-height: 70%;
-      text-align: center;
-    }
+        .popup-content {
+            position: relative;
+            max-width: 70%;
+            max-height: 70%;
+            text-align: center;
+        }
 
-    .popup-content img {
-      max-width: 100%;
-      max-height: 100%;
-      border-radius: 10px;
-      box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.8);
-    }
+        .popup-content img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.8);
+        }
 
-    .close-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background-color: #f00;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 1.2rem;
-      text-align: center;
-      line-height: 40px;
-    }
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #f00;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-align: center;
+            line-height: 40px;
+        }
 
-    .close-btn:hover {
-      background-color: #c00;
-    }
+        .close-btn:hover {
+            background-color: #c00;
+        }
 
-    .nav-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: rgba(255, 255, 255, 0.2);
-      color: white;
-      border: none;
-      font-size: 2rem;
-      cursor: pointer;
-      padding: 10px;
-      border-radius: 50%;
-      z-index: 1001;
-    }
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+            z-index: 1001;
+        }
 
-    .nav-btn:hover {
-      background-color: rgba(255, 255, 255, 0.5);
-    }
+          .nav-btn:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
 
-    .nav-btn.prev {
-      left: 20px;
-    }
+          .nav-btn.prev {
+            left: 20px;
+        }
 
-    .nav-btn.next {
-      right: 20px;
-    }
+          .nav-btn.next {
+            right: 20px;
+        }
 
         /* Footer */
         footer {
@@ -310,74 +310,75 @@
         }
 
         /* Comment */
-        .comments-container {
-      width: 50%;
-      margin: auto;
-      padding: 15px;
-      background-color: #333;
-      border-radius: 10px;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-    }
+          .comments-container {
+            width: 50%;
+            margin: auto;
+            padding: 15px;
+            background-color: #333;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
 
-    .comments-title {
-      text-align: center;
-      font-size: 1.5em;
-      margin-bottom: 10px;
-    }
+      .comments-title {
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
 
-    .comments-list {
-      max-height: 300px; /* Maksimal tinggi kotak komentar */
-      overflow-y: auto;  /* Tambahkan fitur scroll bila isi melebihi tinggi */
-      padding: 10px;
-      border: 1px solid #555;
-      border-radius: 8px;
-      background-color: #222;
-    }
+      .comments-list {
+            max-height: 300px; /* Maksimal tinggi kotak komentar */
+            overflow-y: auto;  /* Tambahkan fitur scroll bila isi melebihi tinggi */
+            padding: 10px;
+            border: 1px solid #555;
+            border-radius: 8px;
+            background-color: #222;
+            text-align: left;
+        }
 
-    .comment {
-      padding: 10px;
-      margin-bottom: 10px;
-      border-bottom: 1px solid #444;
-    }
+      .comment {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #444;
+        }
 
-    .comment:last-child {
-      border-bottom: none;
-    }
+      .comment:last-child {
+            border-bottom: none;
+        }
 
-    .comment h4 {
-      margin: 0 0 5px;
-    }
+      .comment h4 {
+            margin: 0 0 5px;
+        }
 
-    .comment p {
-      margin: 0;
-    }
+      .comment p {
+            margin: 0;
+        }
 
-    .add-comment {
-      margin-top: 15px;
-      display: flex;
-      flex-direction: column;
-    }
+      .add-comment {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+        }
 
-    .add-comment button {
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
-      background-color: #f00;
-      color: white;
-      cursor: pointer;
-      text-align: center;
-      font-size: 1em;
-      text-decoration: none;
-    }
+      .add-comment button {
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background-color: #f00;
+            color: white;
+            cursor: pointer;
+            text-align: left;
+            font-size: 1em;
+            text-decoration: none;
+        }
 
-    .add-comment button:hover {
-      background-color: #c00;
-    }
+      .add-comment button:hover {
+            background-color: #c00;
+        }
 
-    .add-comment a {
-      text-decoration: none;
-      color: white;
-    }
+      .add-comment a {
+            text-decoration: none;
+            color: white;
+        }
 
        /* Gallery */
        body {
@@ -434,11 +435,11 @@
         }
 
         .slide-btn.left {
-            left: 10%;
+            left: 5%;
         }
 
         .slide-btn.right {
-            right: 10%;
+            right: 5%;
         }
 
         .slide-btn:hover {
@@ -529,84 +530,84 @@
         }
 
     /* ABOUT MAIRA */
-    .popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8); /* Overlay transparan */
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8); /* Overlay transparan */
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
 
-.popup-content {
-    background: linear-gradient(to right, #d40303, #6e0202); /* Background merah */
-    color: white; /* Warna teks putih agar kontras */
-    padding: 2rem;
-    width: 90%;
-    max-width: 600px;
-    border-radius: 10px;
-    text-align: center;
-    position: relative;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sedikit bayangan untuk memberikan kedalaman */
-}
+          .popup-content {
+            background: linear-gradient(to right, #d40303, #6e0202); /* Background merah */
+            color: white; /* Warna teks putih agar kontras */
+            padding: 2rem;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sedikit bayangan untuk memberikan kedalaman */
+        }
 
-.popup-content h2 {
-    margin-bottom: 1rem;
-    font-size: 24px;
-    font-weight: bold;
-    text-transform: uppercase;
-}
+        .popup-content h2 {
+            margin-bottom: 1rem;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
 
-.popup-content p {
-    margin-bottom: 1rem;
-    font-size: 16px;
-    line-height: 1.5;
-}
+        .popup-content p {
+            margin-bottom: 1rem;
+            font-size: 16px;
+            line-height: 1.5;
+        }
 
-.popup-content .team {
-    display: grid;
-    grid-template-columns: repeat(2, 3fr);
-    gap: 1rem;
-}
+        .popup-content .team {
+            display: grid;
+            grid-template-columns: repeat(2, 3fr);
+            gap: 1rem;
+        }
 
-.team-member {
-    text-align: center;
-    color: white; /* Warna teks anggota tim */
-}
+        .team-member {
+            text-align: center;
+            color: white; /* Warna teks anggota tim */
+        }
 
-.team-member img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 50%; /* Membuat gambar menjadi lingkaran */
-    margin-bottom: 0.5rem;
-    border: 2px solid white; /* Border putih untuk memperjelas */
-}
+        .team-member img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%; /* Membuat gambar menjadi lingkaran */
+            margin-bottom: 0.5rem;
+            border: 2px solid white; /* Border putih untuk memperjelas */
+        }
 
-.popup-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: white; /* Tombol close dengan background putih */
-    color: red; /* Warna teks tombol merah */
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 50%;
-    font-size: 16px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s, color 0.3s;
-}
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white; /* Tombol close dengan background putih */
+            color: red; /* Warna teks tombol merah */
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s, color 0.3s;
+        }
 
-.popup-close:hover {
-    background: red;
-    color: white;
-    border: 2px solid white; /* Efek hover untuk tombol */
-}
+        .popup-close:hover {
+            background: red;
+            color: white;
+            border: 2px solid white; /* Efek hover untuk tombol */
+        }
 </style>
 
 </head>
