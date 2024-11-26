@@ -547,12 +547,14 @@
             background: linear-gradient(to right, #d40303, #6e0202); /* Background merah */
             color: white; /* Warna teks putih agar kontras */
             padding: 2rem;
-            width: 90%;
+            width: 70%;
             max-width: 600px;
+            max-height: 70vh;
             border-radius: 10px;
             text-align: center;
             position: relative;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sedikit bayangan untuk memberikan kedalaman */
+            overflow-y: auto;
         }
 
         .popup-content h2 {
@@ -570,7 +572,7 @@
 
         .popup-content .team {
             display: grid;
-            grid-template-columns: repeat(2, 3fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
         }
 
@@ -659,7 +661,6 @@
     // JavaScript untuk pop-up
         const aboutLink = document.getElementById('about');
         const popup = document.getElementById('popup'); // Popup untuk About Us
-        const imagePopup = document.getElementById('image-popup'); // Popup untuk gambar
         const closePopup = document.getElementById('closePopup');
         const links = document.querySelectorAll('.nav-links a');
     
@@ -904,8 +905,7 @@
                 Universitas Indonesia - Produksi Media<br>
                 Jl. Margonda Raya, Pondok Cina,<br>
                 Kecamatan Beji, Kota Depok, 16424.<br>
-                +62 000 000 000<br>
-                JurigUI@gmail.com<br>
+                JurigUI03@gmail.com<br>
             </p>
             <p class="right-paragraph">
                 Kirim pesan kepada kami!<br>
@@ -916,9 +916,9 @@
         </div>
 
         <div class="social-links">
-            <a href="#" aria-label="Line"><i class="fab fa-line"></i></a>
-            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://line.me/ti/p/OZaUgU3eeW" aria-label="Line"><i class="fab fa-line"></i></a>
+            <a href="#" aria-label="gmail"><i class="fab fa-gmail"></i></a>
+            <a href="https://www.instagram.com/jurig_ui/profilecard/?igsh=MWQzcTJ1ejl4bHBlbw==" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
     </footer>
 
