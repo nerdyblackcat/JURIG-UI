@@ -860,7 +860,7 @@
     <img src="Makara/farmasi2.png" alt="FKM">
     <p>Fakultas Kesehatan Masyarakat</p>
   </div>
-  <div class="faculty-item" onclick="showPopup(['Hantu/MENARA AIR (1).png])">
+  <div class="faculty-item" onclick="showPopup(['Hantu/MENARA AIR (1).png'])">
     <img src="Makara/fia.png" alt="FIA">
     <p>Fakultas Ilmu Administrasi</p>
   </div>
@@ -944,7 +944,7 @@
         </div>
       </div>
 
-<div class="gallery-container" id="gallery"> <!-- Menambahkan id="gallery" -->
+ <div class="gallery-container" id="gallery"> <!-- Menambahkan id="gallery" -->
     <h2>GALLERY</h2>
     <div class="gallery-slider">
         <button class="slide-btn left" onclick="slideLeft()">&#9664;</button>
@@ -1063,5 +1063,31 @@
         // Initialize active link when page loads
         document.addEventListener('DOMContentLoaded', setActiveLink);
     </script>
+
+     <!-- Audio autoplay -->
+     <audio id="background-audio" autoplay loop>
+    <source src="LAGU-JURIG.mp3" type="audio/mp3">
+      Browser Anda tidak mendukung elemen audio.
+  </audio>
+
+  <!-- Kontrol tambahan jika ingin mematikan atau menyalakan musik -->
+  <button id="toggle-audio" style="position: fixed; top: 10px; right: 10px;">Mute</button>
+
+  <script>
+      const audio = document.getElementById('background-audio');
+      const toggleButton = document.getElementById('toggle-audio');
+
+      toggleButton.addEventListener('click', () => {
+          if (audio.muted) {
+              audio.muted = false;
+              toggleButton.textContent = 'Mute';
+          } 
+          
+          else {
+              audio.muted = true;
+              toggleButton.textContent = 'Unmute';
+          }
+      });
+  </script>
 </body>
 </html>
