@@ -2,14 +2,16 @@
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BZNTNJC632"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-BZNTNJC632');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BZNTNJC632"></script>
+    <script>
+     window.dataLayer = window.dataLayer || [];
+    
+     function gtag() {
+       dataLayer.push(arguments);
+      }
+     gtag('js', new Date());
+     gtag('config', 'G-BZNTNJC632');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JURIG UI</title>
@@ -610,6 +612,66 @@
             color: white;
             border: 2px solid white; /* Efek hover untuk tombol */
         }
+
+        .popup-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+      }
+
+      .popup-image {
+        max-width: 80%;
+        max-height: 80%;
+      }
+
+      .popup-nav {
+        position: absolute;
+        top: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        border: none;
+        font-size: 40px;
+        cursor: pointer;
+        color: white;
+        padding: 10px;
+        z-index: 10;
+        transform: translateY(-50%);
+      }
+
+      .popup-nav:hover {
+        background: rgba(255, 255, 255, 0.8);
+      }
+
+      .popup-nav-left {
+        left: 10px;
+      }
+
+      .popup-nav-right {
+        right: 10px;
+      }
+
+      .popup-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: red;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 16px;
+        z-index: 15;
+      }
+
+      .popup-close:hover {
+        background: darkred;
+      }
 </style>
 
 </head>
@@ -704,121 +766,146 @@
     </div>
 </section>
 
+<script>
+  // Ensure there are no multiple declarations
+  const sliderElement = document.getElementById("slider");
+  const dotElements = document.querySelectorAll(".dot");
+  let currentIndex = 0;
+
+  // Function to update the slider and dot indicators
+  function updateSlider(index) {
+    // Update the transform of the slider to move to the right image
+    slider.style.transform = `translateX(${-slideWidth * sliderIndex}px)`;
+    
+    // Update the active state of the dots
+    dotElements.forEach(dot => dot.classList.remove("active"));
+    dotElements[index].classList.add("active");
+  }
+
+  // Event listeners for dot clicks
+  dotElements.forEach(dot => {
+    dot.addEventListener("click", () => {
+      currentIndex = parseInt(dot.getAttribute("data-index"));
+      updateSlider(currentIndex);
+    });
+  });
+
+  // Optionally, auto-change slides after a certain time interval
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % dotElements.length; // Loop back to the first image
+    updateSlider(currentIndex);
+  }, 5000); // Change slide every 5 seconds
+</script>
+
 <h1>FIND THE JURIG</h1>
   
 <section class="faculty-grid">
-  <div class="faculty-item" onclick="showPopup(['Hantu/JALAN CINTA-HANTU.png', 'makara-fib-2.png'])">
+  <div class="faculty-item" onclick="showPopup(['Hantu/HUTAN UI-HANTU.png', 'Hantu/MENARA AIR (1).png', 'Hantu/BIKUN-HANTU.png', 'Hantu/teksas-HANTU.png', 'Hantu/BALAIRUNG-HANTU.png', 'Hantu/DANAU KENANGA-HANTU.png', 'Hantu/ASRAMA UI.png', 'Hantu/STASIUN UI-HANTU.png', 'Hantu/JALAN CINTA-HANTU.png', 'Hantu/FPSI, FISIP, FIB-HANTU.png'])">
     <img src="Makara/makara-ui.png" alt="ui">
     <p>UNIVERSITAS INDONESIA</p>
   </div>
-  <div class="faculty-item" onclick="showPopup(['makara-vokasi-1.png', 'makara-vokasi-2.png'])">
+  <div class="faculty-item" onclick="showPopup(['Hantu/COMING SOON.png'])">
     <img src="Makara/makara-vokasi.png" alt="VOKASI">
     <p>Program Pendidikan Vokasi</p>
   </div>
-  <div class="faculty-item" onclick="showPopup(['makara-fmipa-1.png', 'makara-fmipa-2.png'])">
+  <div class="faculty-item" onclick="showPopup(['Hantu/FIB-HANTU(1).png', 'Hantu/FIB-HANTU.png', 'Hantu/teksas-HANTU.png', 'Hantu/FPSI, FISIP, FIB-HANTU.png'])">
     <img src="Makara/makara-fib.png" alt="FIB">
     <p>Fakultas Ilmu Budaya</p>
   </div>
-  <div class="faculty-item" onclick="showPopup(['makara-fisip-1.png', 'makara-fisip-2.png'])">
-    <img src="Makara/image 10.png" alt="FISIP">
+  <div class="faculty-item" onclick="showPopup(['Hantu/FPSI, FISIP, FIB-HANTU.png'])">
+    <img src="makara/image 10.png" alt="FISIP">
     <p>Fakultas Ilmu Sosial dan Politik</p>
   </div>
-  <div class="faculty-item" onclick="showPopup(['Hantu/HUKUM-HANTU.png', 'makara-fisip-2.png'])">
-    <img src="Makara/makara-fh.png" alt="FH">
+  <div class="faculty-item" onclick="showPopup(['Hantu/HUKUM-HANTU.png'])">
+    <img src="makara/makara-fh.png" alt="FH">
     <p>Fakultas Hukum</p>
   </div>
-  <div class="faculty-item" onclick="showPopup(['makara-ft-1.png', 'makara-ft-2.png'])">
-    <img src="Makara/makara-ft.png" alt="FAKULTAS TEKNIK">
+  <div class="faculty-item" onclick="showPopup(['Hantu/teksas-HANTU.png'])">
+    <img src="makara/makara-ft.png" alt="FAKULTAS TEKNIK">
     <p>Fakultas Teknik</p>
   </div>
-  <div class="faculty-item" onclick="showPopup(['makara-fasilkom-1.png', 'makara-fasilkom-2.png'])">
-    <img src="Makara/makara-fasilkom.png" alt="FASILKOM">
+  <div class="faculty-item" onclick="showPopup(['Hantu/COMING SOON.png'])">
+    <img src="makara/makara-fasilkom.png" alt="FASILKOM">
     <p>Fakultas Ilmu Komputer</p>
   </div>
-  <div class="faculty-item" onclick="showPopup(['makara-ft-1.png', 'makara-ft-2.png'])">
-    <img src="Makara/makara-fmipa.png" alt="FMIPA">
+  <div class="faculty-item" onclick="showPopup(['Hantu/FMIPA (1).png', 'hantu/FMIPA (2).png', 'Hantu/FMIPA (3).png'])">
+    <img src="makara/makara-fmipa.png" alt="FMIPA">
     <p>Fakultas Matematika dan Ipa</p>
   </div>
-  <div class="faculty-item" onclick="showPopup(['makara-fk-1.png', 'makara-fk-2.png'])">
-    <img src="Makara/fk.png" alt="FK">
+  <div class="faculty-item" onclick="showPopup(['Hantu/COMING SOON.png'])">
+    <img src="makara/fk.png" alt="FK">
     <p>Fakultas Kedokteran</p>
   </div>
-  <div class="faculty-item" onclick="showPopup(['makara-fkg-1.png', 'makara-fkg-2.png'])">
-    <img src="Makara/fkg.png" alt="FKG">
+  <div class="faculty-item" onclick="showPopup(['Hantu/COMING SOON.png'])">
+    <img src="makara/fkg.png" alt="FKG">
     <p>Fakultas Kedokteran Gigi</p>
   </div>
-  <div class="faculty-item" onclick="showPopup(['makara-ff-1.png', 'makara-ff-2.png'])">
-    <img src="Makara/farmasi2.png" alt="FARMASI">
+  <div class="faculty-item" onclick="showPopup(['Hantu/COMING SOON.png'])">
+    <img src="makara/farmasi2.png" alt="FARMASI">
     <p>Fakultas Farmasi</p>
   </div>
-  <div class="faculty-item" onclick="showPopup(['makara-fik-1.png', 'makara-fik-2.png'])">
-    <img src="Makara/makara-ui-fik.png" alt="FIK">
+  <div class="faculty-item" onclick="showPopup(['Hantu/COMING SOON.png'])">
+    <img src="makara/makara-ui-fik.png" alt="FIK">
     <p>Fakultas Ilmu Keperawatan</p>
   </div>
-  <div class="faculty-item" onclick="showPopup(['makara-fpsi-1.png', 'makara-fpsi-2.png'])">
-    <img src="Makara/makara-fpsi.png" alt="FPSI">
+  <div class="faculty-item" onclick="showPopup(['Hantu/FPSI.png', 'Hantu/FPSI, FISIP, FIB-HANTU.png'])">
+    <img src="makara/makara-fpsi.png" alt="FPSI">
     <p>Fakultas Psikologi</p>
   </div>
-  <div class="faculty-item" onclick="showPopup(['makara-feb-1.png', 'makara-feb-2.png'])">
-    <img src="Makara/makara-feb.png" alt="FEB">
+  <div class="faculty-item" onclick="showPopup(['Hantu/COMING SOON.png'])">
+    <img src="makara/makara-feb.png" alt="FEB">
     <p>Fakultas Ekonomi dan Bisnis</p>
   </div>
-  <div class="faculty-item" onclick="showPopup(['makara-fkm-1.png', 'makara-fkm-2.png'])">
-    <img src="Makara/fkm2.png" alt="FKM">
+  <div class="faculty-item" onclick="showPopup(['Hantu/COMING SOON.png'])">
+    <img src="makara/farmasi2.png" alt="FKM">
     <p>Fakultas Kesehatan Masyarakat</p>
   </div>
-  <div class="faculty-item" onclick="showPopup(['makara-fia-1.png', 'makara-fia-2.png'])">
-    <img src="Makara/fia.png" alt="FIA">
+  <div class="faculty-item" onclick="showPopup(['Hantu/MENARA AIR (1).png])">
+    <img src="makara/fia.png" alt="FIA">
     <p>Fakultas Ilmu Administrasi</p>
   </div>
 </section>
 
-<!-- Pop-Up -->
-<div class="popup" id="image-popup">
-  <button class="close-btn" onclick="closePopup()">×</button>
-  <button class="nav-btn prev" onclick="prevSlide()">❮</button>
-  <div class="popup-content">
-    <img id="popup-image" src="" alt="Popup Image">
-  </div>
-  <button class="nav-btn next" onclick="nextSlide()">❯</button>
-</div>
-
 <script>
-    let currentImageIndex = 0;
-    let images = [];
-
-    function showImagePopup(imageArray) {
-      images = imageArray;
-      currentImageIndex = 0;
-      updateImagePopup();
-      imagePopup.style.display = 'flex';
-    }
-
-    function updatePopupImage() {
-      const popupImage = document.getElementById('popup-image');
-      popupImage.src = images[currentImageIndex];
-    }
-
-    function closeImagePopup() {
-      imagePopup.style.display = 'none';
-      document.getElementById('popup-image').src = ''; // Clear the image source
-    }
-
-    function nextSlide() {
-      if (images.length > 0) {
-        currentImageIndex = (currentImageIndex + 1) % images.length;
-        updatePopupImage();
-      }
-    }
-
-    function prevSlide() {
-      if (images.length > 0) {
-        currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-        updatePopupImage();
-      }
-    }
-  </script>
-
+  function showPopup(images) {
+    let currentIndex = 0; // Track the currently displayed image
+    // Create the popup container
+    const popup = document.createElement('div');
+    popup.classList.add('popup-container');
+    // Create the image element
+    const img = document.createElement('img');
+    img.src = images[currentIndex];
+    img.alt = 'Popup Image';
+    img.classList.add('popup-image');
+    popup.appendChild(img);
+    // Create the "Previous" button (left arrow)
+    const prevButton = document.createElement('button');
+    prevButton.innerHTML = '&#8592;'; // Left arrow HTML entity
+    prevButton.classList.add('popup-nav', 'popup-nav-left');
+    prevButton.onclick = () => {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      img.src = images[currentIndex];
+    };
+    // Create the "Next" button (right arrow)
+    const nextButton = document.createElement('button');
+    nextButton.innerHTML = '&#8594;'; // Right arrow HTML entity
+    nextButton.classList.add('popup-nav', 'popup-nav-right');
+    nextButton.onclick = () => {
+      currentIndex = (currentIndex + 1) % images.length;
+      img.src = images[currentIndex];
+    };
+    // Add navigation buttons to the popup
+    popup.appendChild(prevButton);
+    popup.appendChild(nextButton);
+    // Create a close button
+    const closeButton = document.createElement('button');
+    closeButton.innerText = 'Close';
+    closeButton.classList.add('popup-close');
+    closeButton.onclick = () => document.body.removeChild(popup);
+    popup.appendChild(closeButton);
+    document.body.appendChild(popup);
+  }
+</script>
 
     <div class="comments-container">
         <h2 class="comments-title">Comments</h2>
