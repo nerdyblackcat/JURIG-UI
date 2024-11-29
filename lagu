@@ -3,12 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website dengan Audio</title>
+    <title>JURIG UI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* FINAL CSS tetap sama seperti sebelumnya */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: white;
+        }
+
+        #toggle-audio {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            background-color: transparent;
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        #toggle-audio i {
+            transition: color 0.3s;
+        }
+
+        #toggle-audio:hover i {
+            color: red;
+        }
+    </style>
 </head>
 <body>
-    <audio controls loop>
-        <source src="audio/lagu.mp3" type="audio/mpeg">
+    <audio id="background-audio" autoplay loop>
+        <source src="LAGUJURIG.mp3" type="audio/mpeg">
         Browser Anda tidak mendukung elemen audio.
     </audio>
+    
+    </audio>
+
+    <button id="toggle-audio" aria-label="Toggle Audio">
+        <i class="fas fa-volume-up"></i>
+    </button>
+
+    <script>
+        // Ambil elemen audio dan tombol toggle
+        const audio = document.getElementById('background-audio');
+        const toggleButton = document.getElementById('toggle-audio');
+        const toggleIcon = toggleButton.querySelector('i');
+
+        // Play audio secara manual jika autoplay diblokir
+        document.addEventListener('DOMContentLoaded', () => {
+            audio.play().catch(() => console.log('Autoplay diblokir. Klik tombol untuk mulai.'));
+        });
+
+        // Toggle audio mute/unmute
+        toggleButton.addEventListener('click', () => {
+            // Mulai audio jika belum dimainkan
+            if (audio.paused) {
+                audio.play().catch(() => console.log('Autoplay diblokir. Klik untuk memulai audio.'));
+            }
+
+            // Toggle mute/unmute
+            if (audio.muted) {
+                audio.muted = false;
+                toggleIcon.className = 'fas fa-volume-up'; // Ganti ikon
+            } else {
+                audio.muted = true;
+                toggleIcon.className = 'fas fa-volume-mute'; // Ganti ikon
+            }
+        });
+
+        // Optional: Log untuk memastikan audio dimulai dengan benar
+        audio.addEventListener('play', () => console.log('Audio mulai diputar.'));
+        audio.addEventListener('pause', () => console.log('Audio dihentikan.'));
+    </script>
 </body>
 </html>
