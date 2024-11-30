@@ -944,26 +944,37 @@
         </div>
       </div>
 
- <div class="gallery-container" id="gallery"> <!-- Menambahkan id="gallery" -->
-    <h2>GALLERY</h2>
-    <div class="gallery-slider">
-        <button class="slide-btn left" onclick="slideLeft()">&#9664;</button>
-        <div class="gallery">
-            <img src="gallery/hutan ui.jpg">
-            <img src="gallery/menara air.jpg">
-            <img src="gallery/area parkir bikun.jpg">
-            <img src="gallery/jembatan teksas.jpeg">
-            <img src="gallery/balairung.jpg">
-            <img src="gallery/KENANGA.jpg">
-            <img src="gallery/st-ui  (1).jpg">
-            <img src="gallery/asrama.jpg">
-            <img src="gallery/jalan cinta.jpg">
-            <img src="gallery/psj.jpg">
-            <img src="gallery/jalan setapak.jpg">
+      <div class="gallery-container" id="gallery"> <!-- Menambahkan id="gallery" -->
+        <h2>GALLERY</h2>
+        <div class="gallery-slider">
+            <button class="slide-btn left" onclick="slideLeft()">&#9664;</button>
+            <div class="gallery">
+                <img src="gallery/hutan ui.jpg" alt="Hutan UI" 
+                     onclick="showPopup(['Hantu/HUTAN UI-HANTU.png'])">
+                <img src="gallery/menara air.jpg" alt="Menara Air" 
+                     onclick="showPopup(['Hantu/MENARA AIR (1).png'])">
+                <img src="gallery/area parkir bikun.jpg" alt="Area Parkir Bikun" 
+                     onclick="showPopup(['Hantu/BIKUN-HANTU.png'])">
+                <img src="gallery/jembatan teksas.jpeg" alt="Jembatan Teksas" 
+                     onclick="showPopup(['Hantu/teksas-HANTU.png'])">
+                <img src="gallery/balairung.jpg" alt="Balairung" 
+                     onclick="showPopup(['Hantu/BALAIRUNG-HANTU.png'])">
+                <img src="gallery/KENANGA.jpg" alt="Danau Kenanga" 
+                     onclick="showPopup(['Hantu/DANAU KENANGA-HANTU.png'])">
+                <img src="gallery/st-ui  (1).jpg" alt="Stasiun UI" 
+                     onclick="showPopup(['Hantu/STASIUN UI-HANTU.png'])">
+                <img src="gallery/asrama.jpg" alt="Asrama UI" 
+                     onclick="showPopup(['Hantu/ASRAMA UI.png'])">
+                <img src="gallery/jalan cinta.jpg" alt="Jalan Cinta" 
+                     onclick="showPopup(['Hantu/JALAN CINTA-HANTU.png'])">
+                <img src="gallery/psj.jpg" alt="PSJ" 
+                     onclick="showPopup(['Hantu/FPSI, FISIP, FIB-HANTU.png'])">
+                <img src="gallery/jalan setapak.jpg" alt="Jalan Setapak" 
+                     onclick="showPopup(['Hantu/FIB-HANTU(1).png'])">
+            </div>
+            <button class="slide-btn right" onclick="slideRight()">&#9654;</button>
         </div>
-        <button class="slide-btn right" onclick="slideRight()">&#9654;</button>
     </div>
-</div>
   <script>
     const gallery = document.querySelector('.gallery');
 
