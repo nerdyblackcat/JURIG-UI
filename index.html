@@ -208,6 +208,14 @@
         }
 
         /* Pop-Up Styles */
+        
+        .popup-nav {
+            display: none;
+        }
+
+        .popup-container .popup-nav {
+            display: block;
+        }
         .popup {
             display: none;
             position: fixed;
@@ -869,42 +877,52 @@
 <script>
   function showPopup(images) {
     let currentIndex = 0; // Track the currently displayed image
+    
     // Create the popup container
     const popup = document.createElement('div');
     popup.classList.add('popup-container');
+    
     // Create the image element
     const img = document.createElement('img');
     img.src = images[currentIndex];
     img.alt = 'Popup Image';
     img.classList.add('popup-image');
     popup.appendChild(img);
+    
     // Create the "Previous" button (left arrow)
     const prevButton = document.createElement('button');
     prevButton.innerHTML = '&#8592;'; // Left arrow HTML entity
     prevButton.classList.add('popup-nav', 'popup-nav-left');
     prevButton.onclick = () => {
-      currentIndex = (currentIndex - 1 + images.length) % images.length;
-      img.src = images[currentIndex];
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        img.src = images[currentIndex];
     };
+    
     // Create the "Next" button (right arrow)
     const nextButton = document.createElement('button');
     nextButton.innerHTML = '&#8594;'; // Right arrow HTML entity
     nextButton.classList.add('popup-nav', 'popup-nav-right');
     nextButton.onclick = () => {
-      currentIndex = (currentIndex + 1) % images.length;
-      img.src = images[currentIndex];
+        currentIndex = (currentIndex + 1) % images.length;
+        img.src = images[currentIndex];
     };
-    // Add navigation buttons to the popup
-    popup.appendChild(prevButton);
-    popup.appendChild(nextButton);
+    
+    // Add navigation buttons to the popup only if there are multiple images
+    if (images.length > 1) {
+        popup.appendChild(prevButton);
+        popup.appendChild(nextButton);
+    }
+    
     // Create a close button
     const closeButton = document.createElement('button');
     closeButton.innerText = 'Close';
     closeButton.classList.add('popup-close');
     closeButton.onclick = () => document.body.removeChild(popup);
     popup.appendChild(closeButton);
+    
+    // Add the popup to the body
     document.body.appendChild(popup);
-  }
+}
 </script>
 
     <div class="comments-container">
