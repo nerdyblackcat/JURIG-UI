@@ -1,142 +1,1128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pop-Up Versi 2</title>
-  <style>
-    /* Grid fakultas untuk tata letak */
-    .faculty-grid-v2 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 15px;
-      padding: 20px;
-      max-width: 800px;
-      margin: auto;
-    }
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BZNTNJC632"></script>
+    <script>
+     window.dataLayer = window.dataLayer || [];
+    
+     function gtag() {
+       dataLayer.push(arguments);
+      }
+     gtag('js', new Date());
+     gtag('config', 'G-BZNTNJC632');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JURIG UI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
 
-    .faculty-item-v2 {
-      aspect-ratio: 1;
-      background-color: #111;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      border-radius: 10px;
-      transition: transform 0.3s;
-    }
+        body {
+            background-color: #1a1a1a;
+            color: white;
+        }
 
-    .faculty-item-v2 img {
-      width: 80%;
-      height: 80%;
-      object-fit: cover;
-    }
+        /* Navigation */
+        .navbar {
+            background: linear-gradient(to right, #d40303, #6e0202);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;  /* Menambahkan ini untuk membuat navbar tetap diam */
+            top: 0;           /* Menempatkan navbar di bagian atas halaman */
+            left: 0;          /* Menempatkan navbar di kiri halaman */
+            width: 100%;      /* Agar navbar mengambil lebar penuh */
+            z-index: 1000;    /* Agar navbar tetap di atas elemen lain */
+        }
 
-    .faculty-item-v2:hover {
-      transform: scale(1.05);
-    }
 
-    /* Pop-Up Versi 2 */
-    .popup-v2 {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      z-index: 2000; /* Z-index lebih tinggi */
-      align-items: center;
-      justify-content: center;
-    }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
 
-    .popup-content-v2 {
-      background: #333;
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 400px;
-      text-align: center;
-      box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
-      color: #fff;
-    }
+        .logo-img {
+            height: 50px; /* Sesuaikan ukuran logo sesuai kebutuhan */
+            width: auto; /* Menjaga aspek rasio gambar */
+        }
 
-    .popup-content-v2 img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      margin-bottom: 10px;
-    }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            position: relative; /* Required for the underline indicator */
+        }
 
-    .popup-content-v2 h2 {
-      color: #0f0;
-      margin-bottom: 10px;
-    }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            position: relative; /* To allow absolute positioning of the underline */
+            padding-bottom: 5px; /* Space between text and underline */
+        }
 
-    .popup-content-v2 p {
-      font-size: 1em;
-      line-height: 1.5;
-    }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: rgb(254, 254, 254);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
 
-    .close-btn-v2 {
-      background-color: #00ff00;
-      color: black;
-      border: none;
-      border-radius: 5px;
-      padding: 10px 20px;
-      cursor: pointer;
-      font-size: 1em;
-      margin-top: 15px;
-    }
+        .nav-links a.active::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
 
-    .close-btn-v2:hover {
-      background-color: #0c0;
-    }
-  </style>
+        /* Slider GAMBAR UI JURIG */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out; 
+            width: 300%;
+        }
+ 
+        .slider img {
+            width: 100vw; /* Adjust to the screen width */
+            height: auto;
+        }
+
+        /* Dot Indicators */
+        .dot-container {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: rgb(199, 7, 7);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 400px;
+            background-image: url('/api/placeholder/1200/400');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        /* History Section */
+        .history {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .history h2 {
+            margin-bottom: 1rem;
+        }
+
+        /* Faculty Section */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #111, #222);
+            color: white;
+            text-align: center;
+        }
+
+        .faculty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 50px;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;            
+        }
+
+        .faculty-item {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .faculty-item img {
+            width: 170px;
+            height: 170px;
+            object-fit: cover;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+
+        .faculty-item img:hover {
+            transform: scale(1.1);
+        }
+
+        .faculty-item p {
+            margin: 10px 0 0;
+            font-size: 1rem;
+            color: #ddd;
+            transition: color 0.3s;
+        }
+
+        .faculty-item:hover p {
+            color: #f00;
+        }
+
+        /* Pop-Up Styles */
+        
+        .popup-nav {
+            display: none;
+        }
+
+        .popup-container .popup-nav {
+            display: block;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            position: relative;
+            max-width: 70%;
+            max-height: 70%;
+            text-align: center;
+        }
+
+        .popup-content img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.8);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #f00;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-align: center;
+            line-height: 40px;
+        }
+
+        .close-btn:hover {
+            background-color: #c00;
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+            z-index: 1001;
+        }
+
+          .nav-btn:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+          .nav-btn.prev {
+            left: 20px;
+        }
+
+          .nav-btn.next {
+            right: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(to right, #d40303, #6e0202);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: rgb(229, 8, 8);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Comment */
+          .comments-container {
+            width: 50%;
+            margin: auto;
+            padding: 15px;
+            background-color: #333;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+
+      .comments-title {
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+      .comments-list {
+            max-height: 300px; /* Maksimal tinggi kotak komentar */
+            overflow-y: auto;  /* Tambahkan fitur scroll bila isi melebihi tinggi */
+            padding: 10px;
+            border: 1px solid #555;
+            border-radius: 8px;
+            background-color: #222;
+            text-align: left;
+        }
+
+      .comment {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #444;
+        }
+
+      .comment:last-child {
+            border-bottom: none;
+        }
+
+      .comment h4 {
+            margin: 0 0 5px;
+        }
+
+      .comment p {
+            margin: 0;
+        }
+
+      .add-comment {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+      .add-comment button {
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background-color: #f00;
+            color: white;
+            cursor: pointer;
+            text-align: left;
+            font-size: 1em;
+            text-decoration: none;
+        }
+
+      .add-comment button:hover {
+            background-color: #c00;
+        }
+
+      .add-comment a {
+            text-decoration: none;
+            color: white;
+        }
+
+       /* Gallery */
+       body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .gallery-container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .gallery-container h2 {
+            border-bottom: 2px solid #fff;
+            display: inline-block;
+            margin-bottom: 20px;
+            padding-bottom: 5px;
+        }
+
+        .gallery-slider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .gallery {
+            display: flex;
+            overflow: hidden;
+            width: 80%;
+        }
+
+        .gallery img {
+            width: 350px;
+            height: 350px;
+            margin: 5px;
+            border-radius: 10px;
+        }
+
+        .slide-btn {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .slide-btn.left {
+            left: 5%;
+        }
+
+        .slide-btn.right {
+            right: 5%;
+        }
+
+        .slide-btn:hover {
+            background-color: #555;
+        }
+
+        /* Footer Paragraphs */
+       .footer-paragraphs {
+            display: flex;
+            justify-content: space-between; /* Default untuk layar besar */
+            gap: 2rem;
+            margin-top: 2rem;
+            text-align: left;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 10px; /* Memberikan ruang di kiri dan kanan */
+        }
+
+        .footer-paragraphs .left-paragraph,
+        .footer-paragraphs .right-paragraph {
+            width: 48%; /* Membagi lebar 50% untuk masing-masing, beri sedikit ruang */
+            box-sizing: border-box; /* Pastikan padding tidak menambah lebar */
+        }
+
+        .footer-paragraphs p {
+            margin: 0;
+            padding: 0; /* Pastikan tidak ada padding yang menambah lebar */
+            line-height: 1.3; /* Menambah spasi antar baris agar teks lebih nyaman dibaca */
+        }
+
+        footer h3 {
+            margin-bottom: 1.5rem; /* Menambahkan jarak antara 'CONTACT US' dan paragraf di bawahnya */
+        }
+
+
+        /* Responsif pada layar kecil */
+        @media (max-width: 768px) {
+            .slider-container {
+                height: 60vh;
+            }
+
+            .slider img {
+                object-fit: cover;
+            }
+
+            .faculty-grid {
+              grid-template-columns: repeat(2, 1fr);  /* 2 kolom pada layar medium */
+            }
+
+            .footer-paragraphs {
+                flex-direction: column; /* Menyusun paragraf secara vertikal */
+                gap: 1rem;
+                justify-content: center; /* Center-kan isi konten */
+                text-align: center; /* Center-kan teks di dalam paragraf */
+            }
+
+            .footer-paragraphs .left-paragraph,
+            .footer-paragraphs .right-paragraph {
+                width: 100%; /* Full width untuk setiap paragraf pada layar kecil */
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .footer-paragraphs {
+                max-width: 1200px; /* Maksimumkan lebar konten footer pada layar besar */
+                margin: 0 auto; /* Centering footer */
+            }
+
+            .footer-paragraphs p {
+                flex: 0 1 48%; /* Tetap menjaga lebar paragraf pada layar besar */
+                padding-right: 20px; /* Menambahkan sedikit padding kanan pada paragraf kanan */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slider-container {
+                height: 50vh;
+            }
+
+           .faculty-grid {
+             grid-template-columns: 1fr;  /* 1 kolom pada layar kecil */
+            }
+        }
+
+        /* Fokus pada elemen navigasi */
+        .nav-links a:focus {
+            outline: 2px solid #ffcc00;
+        }
+
+    /* ABOUT MAIRA */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8); /* Overlay transparan */
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+          .popup-content {
+            background: linear-gradient(to right, #d40303, #6e0202); /* Background merah */
+            color: white; /* Warna teks putih agar kontras */
+            padding: 2rem;
+            width: 70%;
+            max-width: 600px;
+            max-height: 70vh;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sedikit bayangan untuk memberikan kedalaman */
+            overflow-y: auto;
+        }
+
+        .popup-content h2 {
+            margin-bottom: 1rem;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .popup-content p {
+            margin-bottom: 1rem;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .popup-content .team {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .team-member {
+            text-align: center;
+            color: white; /* Warna teks anggota tim */
+        }
+
+        .team-member img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%; /* Membuat gambar menjadi lingkaran */
+            margin-bottom: 0.5rem;
+            border: 2px solid white; /* Border putih untuk memperjelas */
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white; /* Tombol close dengan background putih */
+            color: red; /* Warna teks tombol merah */
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .popup-close:hover {
+            background: red;
+            color: white;
+            border: 2px solid white; /* Efek hover untuk tombol */
+        }
+
+        .popup-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+      }
+
+      .popup-image {
+        max-width: 80%;
+        max-height: 80%;
+      }
+
+      .popup-nav {
+        position: absolute;
+        top: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        border: none;
+        font-size: 40px;
+        cursor: pointer;
+        color: white;
+        padding: 10px;
+        z-index: 10;
+        transform: translateY(-50%);
+      }
+
+      .popup-nav:hover {
+        background: rgba(255, 255, 255, 0.8);
+      }
+
+      .popup-nav-left {
+        left: 10px;
+      }
+
+      .popup-nav-right {
+        right: 10px;
+      }
+
+      .popup-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: red;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 16px;
+        z-index: 15;
+      }
+
+      .popup-close:hover {
+        background: darkred;
+      }
+</style>
+
 </head>
 <body>
-  <h1>Fakultas UI - Pop-Up Versi 2</h1>
-  <p>Klik logo di bawah untuk melihat informasi (Pop-Up Versi 2).</p>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="logo-atas.png" alt="Logo JURIG UI" class="logo-img">
+            </div>
+            <div class="nav-links">
+                <a href="#home" id="home-link" aria-label="Pergi ke Home">HOME</a>
+                <a href="#about" id="about" aria-label="Pergi ke About">ABOUT</a>
+                <a href="#gallery" id="gallery-btn" aria-label="Pergi ke Gallery">GALLERY</a> 
+            </div>
+        </nav>
+    </header>
+    
+     <!-- Popup -->
+     <div id="popup" class="popup-overlay">
+        <div class="popup-content">
+            <button class="popup-close" id="closePopup">&times;</button>
+            <h2>About Us</h2>
+            <p>Selamat datang di Jurig UI, sebuah platform yang dikelola oleh kami, mahasiswi Universitas Indonesia jurusan Produksi Media. Kami hadir untuk memberikan wadah bagi eksplorasi cerita mistis yang ada di lingkungan kampus kami. Melalui website ini, kami akan mengungkapkan sejarah masa lalu Universitas Indonesia yang kaya dengan kisah-kisah menakutkan dan menarik. Selamat menjelajahi sisi lain dari Universitas Indonesia yang penuh dengan nuansa mistis!</p>
+            <div class="team">
+                <div class="team-member">
+                    <img src="foto-alya.png" alt="Alya Maulidian">
+                    <p>Alya Maulidian - Project Manager</p>
+                </div>
+                <div class="team-member">
+                    <img src="foto-yusuf.png" alt="Muhammad Yusuf">
+                 <p>Muhammad Yusuf - UI/UX Designer</p>
+                </div>
+                <div class="team-member">
+                    <img src="foto-deva.png" alt="Deva Shizuka">
+                    <p>Deva Shizuka - Developer</p>
+                </div>
+                <div class="team-member">
+                    <img src="foto-kai.png" alt="Nasyia Caesaria">
+                    <p>Nasyia Caesaria - Developer</p>
+                </div>
+                <div class="team-member">
+                    <img src="foto-maira.png" alt="Chavali Velma">
+                    <p>Chavali Velma - Developer</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    // JavaScript untuk pop-up
+        const aboutLink = document.getElementById('about');
+        const popup = document.getElementById('popup'); // Popup untuk About Us
+        const closePopup = document.getElementById('closePopup');
+        const links = document.querySelectorAll('.nav-links a');
+    
+        // Event untuk membuka pop-up
+        aboutLink.addEventListener('click', (e) => {
+            e.preventDefault(); // Mencegah scrolling ke anchor
+            popup.style.display = 'flex';
 
-  <section class="faculty-grid-v2">
-    <!-- Elemen grid versi 2 -->
-    <div class="faculty-item-v2" onclick="showPopupV2('Fakultas Teknik', 'makara-ft.png', 'Informasi detail tentang Fakultas Teknik.')">
-      <img src="makara-ft.png" alt="Faculty of Engineering">
-    </div>
-    <div class="faculty-item-v2" onclick="showPopupV2('Fakultas Farmasi', 'makara-farmasi.png', 'Informasi detail tentang Fakultas Farmasi.')">
-      <img src="makara-farmasi.png" alt="Faculty of Pharmacy">
-    </div>
-    <div class="faculty-item-v2" onclick="showPopupV2('Fakultas Ilmu Komputer', 'makara-fasilkom.png', 'Informasi detail tentang Fakultas Ilmu Komputer.')">
-      <img src="makara-fasilkom.png" alt="Faculty of Computer Science">
-    </div>
-  </section>
+            // Update active link di sini setelah pop-up dibuka
+               setActiveLink();
 
-  <!-- Elemen Pop-Up Versi 2 -->
-  <div class="popup-v2" id="popup-v2">
-    <div class="popup-content-v2">
-      <img id="popup-image-v2" src="" alt="Popup Image">
-      <h2 id="popup-title-v2"></h2>
-      <p id="popup-description-v2"></p>
-      <button class="close-btn-v2" onclick="closePopupV2()">Tutup</button>
+            // Mengubah hash URL menjadi '#about' saat klik About
+            window.location.hash = '#about';
+
+        });
+    
+        // Event untuk menutup pop-up
+        closePopup.addEventListener('click', () => {
+            popup.style.display = 'none';
+        });
+    
+        // Menutup pop-up jika klik di luar konten
+        popup.addEventListener('click', (e) => {
+            if (e.target === popup) {
+                popup.style.display = 'none';
+            }
+        });</script>
+
+    <!-- Image Slider -->
+<section class="slider-container" id="home"> <!-- This ID matches the link target -->
+    <div class="slider" id="slider">
+        <img src="header1.png" alt="Image 1">
+        <img src="header2.png" alt="Image 2">
+        <img src="header3.png" alt="Image 3">
     </div>
+    <!-- Dot Indicators -->
+    <div class="dot-container" id="dotContainer">
+        <div class="dot active" data-index="0"></div>
+        <div class="dot" data-index="1"></div>
+        <div class="dot" data-index="2"></div>
+    </div>
+</section>
+
+<script>
+  // Ensure there are no multiple declarations
+  const sliderElement = document.getElementById("slider");
+  const dotElements = document.querySelectorAll(".dot");
+  let currentIndex = 0;
+
+  // Function to update the slider and dot indicators
+  function updateSlider(index) {
+    // Update the transform of the slider to move to the right image
+    slider.style.transform = `translateX(${-slideWidth * sliderIndex}px)`;
+    
+    // Update the active state of the dots
+    dotElements.forEach(dot => dot.classList.remove("active"));
+    dotElements[index].classList.add("active");
+  }
+
+  // Event listeners for dot clicks
+  dotElements.forEach(dot => {
+    dot.addEventListener("click", () => {
+      currentIndex = parseInt(dot.getAttribute("data-index"));
+      updateSlider(currentIndex);
+    });
+  });
+
+  // Optionally, auto-change slides after a certain time interval
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % dotElements.length; // Loop back to the first image
+    updateSlider(currentIndex);
+  }, 5000); // Change slide every 5 seconds
+</script>
+
+<h1>FIND THE JURIG</h1>
+  
+<section class="faculty-grid">
+  <div class="faculty-item" onclick="showPopup(['Hantu/HUTAN UI-HANTU.png', 'Hantu/MENARA AIR (1).png', 'Hantu/BIKUN-HANTU.png', 'Hantu/teksas-HANTU.png', 'Hantu/BALAIRUNG-HANTU.png', 'Hantu/DANAU KENANGA-HANTU.png', 'Hantu/ASRAMA UI.png', 'Hantu/STASIUN UI-HANTU.png', 'Hantu/JALAN CINTA-HANTU.png', 'Hantu/FPSI, FISIP, FIB-HANTU.png'])">
+    <img src="Makara/makara-ui.png" alt="ui">
+    <p>UNIVERSITAS INDONESIA</p>
   </div>
+  <div class="faculty-item" onclick="showPopup(['Hantu/COMING SOON.png'])">
+    <img src="Makara/makara-vokasi.png" alt="VOKASI">
+    <p>Program Pendidikan Vokasi</p>
+  </div>
+  <div class="faculty-item" onclick="showPopup(['Hantu/FIB-HANTU(1).png', 'Hantu/FIB-HANTU.png', 'Hantu/teksas-HANTU.png', 'Hantu/FPSI, FISIP, FIB-HANTU.png'])">
+    <img src="Makara/makara-fib.png" alt="FIB">
+    <p>Fakultas Ilmu Budaya</p>
+  </div>
+  <div class="faculty-item" onclick="showPopup(['Hantu/FPSI, FISIP, FIB-HANTU.png'])">
+    <img src="Makara/image 10.png" alt="FISIP">
+    <p>Fakultas Ilmu Sosial dan Politik</p>
+  </div>
+  <div class="faculty-item" onclick="showPopup(['Hantu/HUKUM-HANTU.png'])">
+    <img src="Makara/makara-fh.png" alt="FH">
+    <p>Fakultas Hukum</p>
+  </div>
+  <div class="faculty-item" onclick="showPopup(['Hantu/teksas-HANTU.png'])">
+    <img src="Makara/makara-ft.png" alt="FAKULTAS TEKNIK">
+    <p>Fakultas Teknik</p>
+  </div>
+  <div class="faculty-item" onclick="showPopup(['Hantu/COMING SOON.png'])">
+    <img src="Makara/makara-fasilkom.png" alt="FASILKOM">
+    <p>Fakultas Ilmu Komputer</p>
+  </div>
+  <div class="faculty-item" onclick="showPopup(['Hantu/FMIPA (1).png', 'hantu/FMIPA (2).png', 'Hantu/FMIPA (3).png'])">
+    <img src="Makara/makara-fmipa.png" alt="FMIPA">
+    <p>Fakultas Matematika dan Ipa</p>
+  </div>
+  <div class="faculty-item" onclick="showPopup(['Hantu/COMING SOON.png'])">
+    <img src="Makara/fk.png" alt="FK">
+    <p>Fakultas Kedokteran</p>
+  </div>
+  <div class="faculty-item" onclick="showPopup(['Hantu/COMING SOON.png'])">
+    <img src="Makara/fkg.png" alt="FKG">
+    <p>Fakultas Kedokteran Gigi</p>
+  </div>
+  <div class="faculty-item" onclick="showPopup(['Hantu/COMING SOON.png'])">
+    <img src="Makara/farmasi2.png" alt="FARMASI">
+    <p>Fakultas Farmasi</p>
+  </div>
+  <div class="faculty-item" onclick="showPopup(['Hantu/COMING SOON.png'])">
+    <img src="Makara/makara-ui-fik.png" alt="FIK">
+    <p>Fakultas Ilmu Keperawatan</p>
+  </div>
+  <div class="faculty-item" onclick="showPopup(['Hantu/FPSI.png', 'Hantu/FPSI, FISIP, FIB-HANTU.png'])">
+    <img src="Makara/makara-fpsi.png" alt="FPSI">
+    <p>Fakultas Psikologi</p>
+  </div>
+  <div class="faculty-item" onclick="showPopup(['Hantu/COMING SOON.png'])">
+    <img src="Makara/makara-feb.png" alt="FEB">
+    <p>Fakultas Ekonomi dan Bisnis</p>
+  </div>
+  <div class="faculty-item" onclick="showPopup(['Hantu/COMING SOON.png'])">
+    <img src="Makara/farmasi2.png" alt="FKM">
+    <p>Fakultas Kesehatan Masyarakat</p>
+  </div>
+  <div class="faculty-item" onclick="showPopup(['Hantu/MENARA AIR (1).png'])">
+    <img src="Makara/fia.png" alt="FIA">
+    <p>Fakultas Ilmu Administrasi</p>
+  </div>
+</section>
 
+<script>
+  function showPopup(images) {
+    let currentIndex = 0; // Track the currently displayed image
+    
+    // Create the popup container
+    const popup = document.createElement('div');
+    popup.classList.add('popup-container');
+    
+    // Create the image element
+    const img = document.createElement('img');
+    img.src = images[currentIndex];
+    img.alt = 'Popup Image';
+    img.classList.add('popup-image');
+    popup.appendChild(img);
+    
+    // Create the "Previous" button (left arrow)
+    const prevButton = document.createElement('button');
+    prevButton.innerHTML = '&#8592;'; // Left arrow HTML entity
+    prevButton.classList.add('popup-nav', 'popup-nav-left');
+    prevButton.onclick = () => {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        img.src = images[currentIndex];
+    };
+    
+    // Create the "Next" button (right arrow)
+    const nextButton = document.createElement('button');
+    nextButton.innerHTML = '&#8594;'; // Right arrow HTML entity
+    nextButton.classList.add('popup-nav', 'popup-nav-right');
+    nextButton.onclick = () => {
+        currentIndex = (currentIndex + 1) % images.length;
+        img.src = images[currentIndex];
+    };
+    
+    // Add navigation buttons to the popup only if there are multiple images
+    if (images.length > 1) {
+        popup.appendChild(prevButton);
+        popup.appendChild(nextButton);
+    }
+    
+    // Create a close button
+    const closeButton = document.createElement('button');
+    closeButton.innerText = 'Close';
+    closeButton.classList.add('popup-close');
+    closeButton.onclick = () => document.body.removeChild(popup);
+    popup.appendChild(closeButton);
+    
+    // Add the popup to the body
+    document.body.appendChild(popup);
+}
+</script>
+
+    <div class="comments-container">
+        <h2 class="comments-title">Comments</h2>
+        <div class="comments-list">
+          <!-- Contoh komentar -->
+          <div class="comment">
+            <h4>FufuFafa <span style="font-size: 0.8em; color: #aaa;"></span></h4>
+            <p>Saya waktu berkunjung ke salah satu Fakultas UI, dan tanpa saya sengaja, saya bertemu dengan sosok perempuan berambut panjang.</p>
+          </div>
+          <div class="comment">
+            <h4>Mas Narji <span style="font-size: 0.8em; color: #aaa;"></span></h4>
+            <p>Saya waktu berkunjung di Fakultas Vokasi, saya melihat sosok bayangan putih di air mancur vokasi dan menyanyikan sebuah lagu.</p>
+          </div>
+          <div class="comment">
+            <h4>Andi <span style="font-size: 0.8em; color: #aaa;"></span></h4>
+            <p>Waktu malam hari, saya merasa ada sesuatu yang aneh di Fakultas Kedokteran. Apakah benar ada cerita di sana?</p>
+          </div>
+          <div class="comment">
+            <h4>Siti <span style="font-size: 0.8em; color: #aaa;"></span></h4>
+            <p>Saya mendengar cerita dari teman saya, apakah itu hanya mitos?</p>
+          </div>
+          <div class="comment">
+            <h4>Rani <span style="font-size: 0.8em; color: #aaa;"></span></h4>
+            <p>Saya pernah melihat sosok di Gedung Rektorat! Menyeramkan!</p>
+          </div>
+          <div class="comment">
+            <h4>Jojon <span style="font-size: 0.8em; color: #aaa;"></span></h4>
+            <p>Saya pernah liat juga, ada gondoruwo di vokasi, gede banget sumpah. Pas itu juga saya ngeliat ada tuyul lagi muter muter buat nyari duit</p>
+          </div>
+        </div>
+        <div class="add-comment">
+          <!-- Tombol dengan link ke Google Form -->
+          <a href="https://bit.ly/JURIGUI" target="_blank">
+            <button>Submit Your Comment</button>
+          </a>
+        </div>
+      </div>
+
+      <div class="gallery-container" id="gallery"> <!-- Menambahkan id="gallery" -->
+        <h2>GALLERY</h2>
+        <div class="gallery-slider">
+            <button class="slide-btn left" onclick="slideLeft()">&#9664;</button>
+            <div class="gallery">
+                <img src="gallery/hutan ui.jpg" alt="Hutan UI" 
+                     onclick="showPopup(['Hantu/HUTAN UI-HANTU.png'])">
+                <img src="gallery/menara air.jpg" alt="Menara Air" 
+                     onclick="showPopup(['Hantu/MENARA AIR (1).png'])">
+                <img src="gallery/area parkir bikun.jpg" alt="Area Parkir Bikun" 
+                     onclick="showPopup(['Hantu/BIKUN-HANTU.png'])">
+                <img src="gallery/jembatan teksas.jpeg" alt="Jembatan Teksas" 
+                     onclick="showPopup(['Hantu/teksas-HANTU.png'])">
+                <img src="gallery/balairung.jpg" alt="Balairung" 
+                     onclick="showPopup(['Hantu/BALAIRUNG-HANTU.png'])">
+                <img src="gallery/KENANGA.jpg" alt="Danau Kenanga" 
+                     onclick="showPopup(['Hantu/DANAU KENANGA-HANTU.png'])">
+                <img src="gallery/st-ui  (1).jpg" alt="Stasiun UI" 
+                     onclick="showPopup(['Hantu/STASIUN UI-HANTU.png'])">
+                <img src="gallery/asrama.jpg" alt="Asrama UI" 
+                     onclick="showPopup(['Hantu/ASRAMA UI.png'])">
+                <img src="gallery/jalan cinta.jpg" alt="Jalan Cinta" 
+                     onclick="showPopup(['Hantu/JALAN CINTA-HANTU.png'])">
+                <img src="gallery/psj.jpg" alt="PSJ" 
+                     onclick="showPopup(['Hantu/FPSI, FISIP, FIB-HANTU.png'])">
+                <img src="gallery/jalan setapak.jpg" alt="Jalan Setapak" 
+                     onclick="showPopup(['Hantu/FIB-HANTU(1).png'])">
+            </div>
+            <button class="slide-btn right" onclick="slideRight()">&#9654;</button>
+        </div>
+    </div>
   <script>
-    // Fungsi untuk menampilkan Pop-Up Versi 2
-    function showPopupV2(title, imageSrc, description) {
-      // Mengisi konten pop-up
-      document.getElementById('popup-title-v2').innerText = title;
-      document.getElementById('popup-image-v2').src = imageSrc;
-      document.getElementById('popup-description-v2').innerText = description;
+    const gallery = document.querySelector('.gallery');
 
-      // Menampilkan pop-up
-      document.getElementById('popup-v2').style.display = 'flex';
+    function slideLeft() {
+      gallery.scrollBy({
+        top: 0,
+        left: -220,
+        behavior: 'smooth'
+      });
     }
 
-    // Fungsi untuk menutup Pop-Up Versi 2
-    function closePopupV2() {
-      // Menyembunyikan pop-up
-      document.getElementById('popup-v2').style.display = 'none';
+    function slideRight() {
+      gallery.scrollBy({
+        top: 0,
+        left: 220,
+        behavior: 'smooth'
+      });
     }
   </script>
+
+    <footer>
+        <h3>CONTACT US</h3>
+        <!-- Footer Paragraphs -->
+        <div class="footer-paragraphs">
+            <p class="left-paragraph">
+                Universitas Indonesia - Produksi Media<br>
+                Jl. Margonda Raya, Pondok Cina,<br>
+                Kecamatan Beji, Kota Depok, 16424.<br>
+                JurigUI03@gmail.com<br>
+            </p>
+            <p class="right-paragraph">
+                Kirim pesan kepada kami!<br>
+                Kami selalu siap mendengarkan anda. Apakah<br>
+                Anda memiliki pertanyaan, saran, atau butuh<br>
+                bantuan? Jangan ragu untuk menghubungi kami :)<br>
+            </p>
+        </div>
+
+        <div class="social-links">
+            <a href="https://line.me/ti/p/OZaUgU3eeW" aria-label="Line"><i class="fab fa-line"></i></a>
+            <a href="#" aria-label="gmail"><i class="fab fa-gmail"></i></a>
+            <a href="https://www.instagram.com/jurig_ui/profilecard/?igsh=MWQzcTJ1ejl4bHBlbw==" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // JAVA SCRIPT BUAT SLIDE GAMBAR DAN DOT INDICATOR
+        let sliderIndex = 0;
+        const slider=document.getElementById("slider");
+        const dots=document.querySelectorAll(".dot");
+    
+        function showSlide(index) {
+            sliderIndex = index;
+            const slideWidth = slider.children[0].clientWidth; // Get the width of one slide
+            slider.style.transform = `translateX(${-slideWidth * sliderIndex}px)`; // Move the slider container
+    
+            // Update dot indicators
+            dots.forEach(dot => dot.classList.remove("active"));
+            dots[sliderIndex].classList.add("active");
+        }
+    
+        dots.forEach(dot => {
+            dot.addEventListener("click", () => {
+                showSlide(dot.dataset.index);
+            });
+        });
+    
+        // Optional: Add automatic sliding effect
+        setInterval(() => {
+            sliderIndex = (sliderIndex + 1) % slider.children.length;
+            showSlide(sliderIndex);
+        }, 3000); // Change slide every 3 seconds
+    
+       
+        // INI BUAT BIAR ADA UNDERLINE DI BAWAH TULISAN HOME ABOUT DAN GALLERY
+       
+
+        // JAVA SCRIPT BUAT PINDAH KE HALAMAN LAIN --> HOME ABOUT DAN GALLERY
+        // Function untuk mengaktifkan link yang sedang dipilih
+        function setActiveLink() {
+            links.forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Memastikan hash sesuai dengan id yang aktif
+            links.forEach(link => {
+                if (window.location.hash === link.hash || link.id === "about" && popup.style.display === 'flex') {
+                    link.classList.add('active');
+                
+                }
+            });
+        }
+
+        // Listen for hash changes and update active state
+        window.addEventListener('hashchange', setActiveLink);
+
+        // Initialize active link when page loads
+        document.addEventListener('DOMContentLoaded', setActiveLink);
+    </script>
+
+<!-- Audio autoplay dengan kontrol speaker -->
+<audio id="background-audio" autoplay loop>
+  <source src="LAGU-JURIG.mp3" type="audio/mpeg">
+  Browser Anda tidak mendukung elemen audio.
+</audio>
+
+<!-- Tombol kontrol audio -->
+<button id="toggle-audio" aria-label="Toggle Audio" style="position: fixed; bottom: 10px; left: 10px; background-color: transparent; color: white; border: none; font-size: 24px; cursor: pointer; z-index: 1001;">
+  <i class="fas fa-volume-up"></i>
+</button>
+
+<script>
+  const audio = document.getElementById('background-audio');
+  const toggleButton = document.getElementById('toggle-audio');
+  const toggleIcon = toggleButton.querySelector('i');
+
+  // Coba mulai audio manual jika autoplay diblokir
+  document.addEventListener('DOMContentLoaded', () => {
+      audio.play().catch(() => console.log('Autoplay diblokir. Klik tombol untuk memulai.'));
+  });
+
+  // Fungsi untuk toggle audio
+  toggleButton.addEventListener('click', () => {
+      if (audio.paused) {
+          audio.play().catch(() => console.log('Audio gagal diputar.'));
+      }
+      audio.muted = !audio.muted;
+      toggleIcon.className = audio.muted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
+  });
+</script>
+
 </body>
 </html>
