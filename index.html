@@ -578,17 +578,37 @@
             margin-bottom: 1rem;
             font-size: 16px;
             line-height: 1.5;
+            text-align: justify;
+        }
+
+        .small-italic {
+            font-size: 12px !important;
+            font-style: italic !important;
+            text-align: center !important;
         }
 
         .popup-content .team {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
+            grid-auto-rows: auto;
             gap: 1rem;
+            justify-content: center;
+            align-items: center;
         }
+
+        .team-member:nth-child(1) {
+            grid-column: 1 / 3; /* Project Manager di tengah */
+            justify-self: center;
+        }
+
 
         .team-member {
             text-align: center;
             color: white; /* Warna teks anggota tim */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Vertikal center gambar dan teks */
+            align-items: center; /* Horizontal center gambar dan teks */
         }
 
         .team-member img {
@@ -598,6 +618,11 @@
             border-radius: 50%; /* Membuat gambar menjadi lingkaran */
             margin-bottom: 0.5rem;
             border: 2px solid white; /* Border putih untuk memperjelas */
+        }
+
+        .team-member p {
+         margin: 0; /* Menghilangkan margin agar teks sejajar tepat di bawah gambar */
+        font-size: 1rem;
         }
 
         .popup-close {
@@ -680,6 +705,7 @@
       .popup-close:hover {
         background: darkred;
       }
+
 </style>
 
 </head>
@@ -702,15 +728,12 @@
         <div class="popup-content">
             <button class="popup-close" id="closePopup">&times;</button>
             <h2>About Us</h2>
-            <p>Selamat datang di Jurig UI, sebuah platform yang dikelola oleh kami, mahasiswi Universitas Indonesia jurusan Produksi Media. Kami hadir untuk memberikan wadah bagi eksplorasi cerita mistis yang ada di lingkungan kampus kami. Melalui website ini, kami akan mengungkapkan sejarah masa lalu Universitas Indonesia yang kaya dengan kisah-kisah menakutkan dan menarik. Selamat menjelajahi sisi lain dari Universitas Indonesia yang penuh dengan nuansa mistis!</p>
+            <p>Selamat datang di Jurig UI, sebuah platform non-profit yang dikelola oleh kami, mahasiswi Universitas Indonesia jurusan Produksi Media. Kami hadir untuk memberikan wadah bagi eksplorasi cerita mistis yang ada di lingkungan kampus kami. Melalui website ini, kami akan mengungkapkan sejarah masa lalu Universitas Indonesia yang kaya dengan kisah-kisah menakutkan dan menarik. Selamat menjelajahi sisi lain dari Universitas Indonesia yang penuh dengan nuansa mistis!</p>
+            <p>     </p>
             <div class="team">
                 <div class="team-member">
                     <img src="foto-alya.png" alt="Alya Maulidian">
                     <p>Alya Maulidian - Project Manager</p>
-                </div>
-                <div class="team-member">
-                    <img src="foto-yusuf.png" alt="Muhammad Yusuf">
-                 <p>Muhammad Yusuf - UI/UX Designer</p>
                 </div>
                 <div class="team-member">
                     <img src="foto-deva.png" alt="Deva Shizuka">
@@ -721,10 +744,16 @@
                     <p>Nasyia Caesaria - Developer</p>
                 </div>
                 <div class="team-member">
+                    <img src="foto-bangucup.png" alt="Muhammad Yusuf">
+                    <p>M. Yusuf - UI/UX Designer</p>
+                </div>
+                <div class="team-member">
                     <img src="foto-maira.png" alt="Chavali Velma">
                     <p>Chavali Velma - Developer</p>
                 </div>
             </div>
+            <p>        </p>
+            <p class="small-italic"> sumber cerita untuk website kami diambil dari akun X @Seph_bimo dan Nabila Alifah di Quora. jika terdapat informasi yang kurang akurat jangan ragu untuk menghubungi kami terkait hal tersebut :)</p>
         </div>
     </div>
     <script>
@@ -986,9 +1015,9 @@
                 <img src="gallery/jalan cinta.jpg" alt="Jalan Cinta" 
                      onclick="showPopup(['Hantu/JALAN CINTA-HANTU.png'])">
                 <img src="gallery/psj.jpg" alt="PSJ" 
-                     onclick="showPopup(['Hantu/FPSI, FISIP, FIB-HANTU.png'])">
-                <img src="gallery/jalan setapak.jpg" alt="Jalan Setapak" 
                      onclick="showPopup(['Hantu/FIB-HANTU(1).png'])">
+                <img src="gallery/jalan setapak.jpg" alt="Jalan Setapak" 
+                     onclick="showPopup(['Hantu/FPSI, FISIP, FIB-HANTU.png'])">
             </div>
             <button class="slide-btn right" onclick="slideRight()">&#9654;</button>
         </div>
@@ -1100,23 +1129,30 @@
   </audio>
 
   <!-- Kontrol tambahan jika ingin mematikan atau menyalakan musik -->
-  <button id="toggle-audio" style="position: fixed; top: 10px; right: 10px;">Mute</button>
-
+  <button id="toggle-audio" aria-label="Toggle Audio" style="position: fixed; bottom: 10px; left: 10px; background-color: transparent; color: white; border: none; font-size: 24px; cursor: pointer; z-index: 1001;">
+    <i class="fas fa-volume-up"></i>
+  </button>
+  
   <script>
-      const audio = document.getElementById('background-audio');
-      const toggleButton = document.getElementById('toggle-audio');
-
-      toggleButton.addEventListener('click', () => {
-          if (audio.muted) {
-              audio.muted = false;
-              toggleButton.textContent = 'Mute';
-          } 
-          
-          else {
-              audio.muted = true;
-              toggleButton.textContent = 'Unmute';
-          }
-      });
+    const audio = document.getElementById('background-audio');
+    const toggleButton = document.getElementById('toggle-audio');
+    const toggleIcon = toggleButton.querySelector('i');
+  
+    // Coba mulai audio manual jika autoplay diblokir
+    document.addEventListener('DOMContentLoaded', () => {
+        audio.play().catch(() => console.log('Autoplay diblokir. Klik tombol untuk memulai.'));
+    });
+  
+    // Fungsi untuk toggle audio
+    toggleButton.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play().catch(() => console.log('Audio gagal diputar.'));
+        }
+        audio.muted = !audio.muted;
+        toggleIcon.className = audio.muted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
+    });
   </script>
+
+  
 </body>
 </html>
